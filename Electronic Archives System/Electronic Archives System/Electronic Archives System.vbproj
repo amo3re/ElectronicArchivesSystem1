@@ -1,0 +1,666 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CC9B883B-1265-4962-9C9D-ABD21B8815BB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>Electronic_Archives_System.My.MyApplication</StartupObject>
+    <RootNamespace>Electronic_Archives_System</RootNamespace>
+    <AssemblyName>Electronic Archives System</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>Electronic Archives System.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>Electronic Archives System.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ALquhaliLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Downloads\ملفات برنامج الارشيف\WIA and ALquhaliLibrary\ALquhaliLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Bunifu_UI_v1.52">
+      <HintPath>..\..\..\..\..\..\Library Project\Bunifu_UI_v1.52.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar2, Version=14.1.0.37, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
+    <Reference Include="DropDownControls">
+      <HintPath>..\..\..\..\..\Downloads\ملفات برنامج الارشيف\DropDownControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.WIA">
+      <HintPath>..\..\..\..\..\Downloads\ملفات برنامج الارشيف\WIA and ALquhaliLibrary\Interop.WIA.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="TwainLib">
+      <HintPath>..\..\..\..\..\Downloads\ملفات برنامج الارشيف\TwainLib مكتبة للتعامل مع الماسح الضوئي\TwainLib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\ProjectClass.vb" />
+    <Compile Include="Forms\FrmAddfiles.Designer.vb">
+      <DependentUpon>FrmAddfiles.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmAddfiles.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmAddFolders.Designer.vb">
+      <DependentUpon>FrmAddFolders.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmAddFolders.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmCyclePin.Designer.vb">
+      <DependentUpon>FrmCyclePin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmCyclePin.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmDatabase.Designer.vb">
+      <DependentUpon>FrmDatabase.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmDatabase.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmEMail.Designer.vb">
+      <DependentUpon>FrmEMail.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmEMail.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmImgSettings.Designer.vb">
+      <DependentUpon>FrmImgSettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmImgSettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmLogin.Designer.vb">
+      <DependentUpon>FrmLogin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmLogin.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmMainPage.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmMainPage.Designer.vb">
+      <DependentUpon>FrmMainPage.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmPassword.Designer.vb">
+      <DependentUpon>FrmPassword.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmPassword.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmScan.Designer.vb">
+      <DependentUpon>FrmScan.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmScan.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmServerCon.Designer.vb">
+      <DependentUpon>FrmServerCon.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmServerCon.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmUserAccounts.Designer.vb">
+      <DependentUpon>FrmUserAccounts.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmUserAccounts.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmUserRoles.Designer.vb">
+      <DependentUpon>FrmUserRoles.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmUserRoles.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\ConnectionModule.vb" />
+    <Compile Include="Modules\PublicModule.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\FrmAddfiles.resx">
+      <DependentUpon>FrmAddfiles.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmAddFolders.resx">
+      <DependentUpon>FrmAddFolders.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmCyclePin.resx">
+      <DependentUpon>FrmCyclePin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmDatabase.resx">
+      <DependentUpon>FrmDatabase.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmEMail.resx">
+      <DependentUpon>FrmEMail.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmImgSettings.resx">
+      <DependentUpon>FrmImgSettings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmLogin.resx">
+      <DependentUpon>FrmLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmMainPage.resx">
+      <DependentUpon>FrmMainPage.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmPassword.resx">
+      <DependentUpon>FrmPassword.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmScan.resx">
+      <DependentUpon>FrmScan.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmServerCon.resx">
+      <DependentUpon>FrmServerCon.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmUserAccounts.resx">
+      <DependentUpon>FrmUserAccounts.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmUserRoles.resx">
+      <DependentUpon>FrmUserRoles.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\118916_guardar_save_document_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loading.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lock_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lock_48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lock_100px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lock_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log Out_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MarqueeZoom_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\node-tree.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Print_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Remove_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\right-arrow24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rotate left24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rotate right24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save_16x16 %284%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scan16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sorting16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\switch-turn-off-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Text preview.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Trash_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tree.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TreeView_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TreeView_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user_add1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user-add-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Video_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Windows-Turn-Off-icon%283%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\x-mark-3-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Zoom In_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Zoom Out_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Zoom_16x16 %283%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1309721023_setting_tools.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Action_Clear_12x12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Action_Export_ToPDF %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add_1616.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddFile_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddFile_1616.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddItem_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddItem_1616.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add-Male-User.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\archive482.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\archiveiii16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Backward_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\book_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Calendar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\collapse_40px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CollapseFieldPivotTable_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Copy_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Date.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dd.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DefaultPrinter_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete_24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DocumentMap_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EditContact_16x16 %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\email_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ExpandFieldPivotTable_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ExportToDOC_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ExportToPDF_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Find_16x16 %283%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FindCustomers_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\flat_seo-30-512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Forward_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Help_48x48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconfinder_Open_file_132300.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Information_24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Information_48x48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\left-arrow24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Database.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\database_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page_white_database.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_database.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\database_gear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\database_go.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\database_key.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Close_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Employees_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\First_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Index_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Last_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mail.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mail_16x16 %283%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Next_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OK.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Open_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Open2_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Prev_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SQL Image.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Actions-list-add-user-icon %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\reseller_programm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1322323808_group_key.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1324239876_clock_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\clock_play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="AxAcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>6</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\118916_guardar_save_document_icon1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\add_data.ico" />
+    <Content Include="Resources\batch.ico" />
+    <Content Include="Resources\CLOSE2.ICO" />
+    <Content Include="Resources\db_export.ico" />
+    <Content Include="Resources\delrow.ico" />
+    <None Include="Resources\delrow1.ico" />
+    <Content Include="Resources\del_all.ico" />
+    <None Include="Resources\del_all1.ico" />
+    <Content Include="Resources\del_this.ico" />
+    <None Include="Resources\del_this1.ico" />
+    <Content Include="Resources\doc1.ico" />
+    <Content Include="Resources\doc_del.ico" />
+    <None Include="Resources\doc_del1.ico" />
+    <Content Include="Resources\doc_new.ico" />
+    <Content Include="Resources\Down.ICO" />
+    <Content Include="Resources\edit.ico" />
+    <Content Include="Resources\Erp_Exit.ico" />
+    <None Include="Resources\Erp_Exit1.ico" />
+    <Content Include="Resources\Exitall.ico" />
+    <None Include="Resources\Exitall1.ico" />
+    <Content Include="Resources\exitallb.ICO" />
+    <None Include="Resources\exitallb1.ICO" />
+    <Content Include="Resources\exitallr.ICO" />
+    <None Include="Resources\exitallr1.ICO" />
+    <Content Include="Resources\Find.ico" />
+    <None Include="Resources\Find1.ico" />
+    <Content Include="Resources\find_ico.ico" />
+    <Content Include="Resources\First_Rcrd.ico" />
+    <Content Include="Resources\fldopen.ico" />
+    <Content Include="Resources\Gl_cust.ico" />
+    <Content Include="Resources\home.ico" />
+    <Content Include="Resources\lock.ico" />
+    <Content Include="Resources\locked.ico" />
+    <Content Include="Resources\lockrec.ico" />
+    <Content Include="Resources\Lock_Scr.ico" />
+    <Content Include="Resources\Logoff.ico" />
+    <Content Include="Resources\Log_Off.ico" />
+    <None Include="Resources\Log_Off1.ico" />
+    <Content Include="Resources\MOD_BTN.ico" />
+    <Content Include="Resources\move %281%29.png" />
+    <None Include="Resources\move %281%291.png" />
+    <Content Include="Resources\move.png" />
+    <None Include="Resources\move1.png" />
+    <Content Include="Resources\print-view.png" />
+    <Content Include="Resources\print.ico" />
+    <Content Include="Resources\PRINTER2.PNG" />
+    <Content Include="Resources\Refresh1.ico" />
+    <None Include="Resources\Refresh11.ico" />
+    <Content Include="Resources\rt_clear.ico" />
+    <Content Include="Resources\rt_close.ico" />
+    <Content Include="Resources\rt_radd.ico" />
+    <Content Include="Resources\rt_zmin.ico" />
+    <Content Include="Resources\rt_zmout.ico" />
+    <Content Include="Resources\save.ico" />
+    <Content Include="Resources\Save_Btn.ico" />
+    <Content Include="Resources\SearchTree1.ico" />
+    <Content Include="Resources\Up.ICO" />
+    <Content Include="Resources\w_next.ico" />
+    <Content Include="Resources\w_prev.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
