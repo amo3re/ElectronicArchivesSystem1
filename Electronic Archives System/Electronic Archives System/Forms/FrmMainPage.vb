@@ -43,7 +43,9 @@ Public Class FrmMainPage
     End Sub
 
     Private Sub btnSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSettings.Click
-        FrmServerCon.ShowDialog()
+        'FrmServerCon.ShowDialog()
+        'FrmServerConnection1.ShowDialog()
+        FrmServerConnection.ShowDialog()
     End Sub
 
     Private Sub btnBackup_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBackup.Click
@@ -195,7 +197,9 @@ Public Class FrmMainPage
     End Sub
 
     Private Sub btnSendFileToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles btnSendFileToolStrip.Click
-        btnSendMail.PerformClick()
+        If TreeView1.SelectedNode.ImageIndex >= 28 Then ' لان ايقونات المجلدات عددها 27 في قائمة الصور و صور الملفات تكون اكبر من او يساوي 28
+            cls.CheckIFSelectedFileSecretBeforeSend(Me) ' Check IF Selected File Secret Before Send دالة التحقق من ان الملف المحدد محمي قبل الارسال الى شاشة الايميل 
+        End If
 
     End Sub
 

@@ -159,6 +159,18 @@
     <Compile Include="Forms\FrmServerCon.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\FrmServerConnection.Designer.vb">
+      <DependentUpon>FrmServerConnection.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmServerConnection.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmServerConnection1.Designer.vb">
+      <DependentUpon>FrmServerConnection1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmServerConnection1.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\FrmUserAccounts.Designer.vb">
       <DependentUpon>FrmUserAccounts.vb</DependentUpon>
     </Compile>
@@ -222,6 +234,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmServerCon.resx">
       <DependentUpon>FrmServerCon.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmServerConnection.resx">
+      <DependentUpon>FrmServerConnection.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmServerConnection1.resx">
+      <DependentUpon>FrmServerConnection1.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmUserAccounts.resx">
       <DependentUpon>FrmUserAccounts.vb</DependentUpon>

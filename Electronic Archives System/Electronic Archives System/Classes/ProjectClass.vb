@@ -5,6 +5,8 @@ Imports ALquhaliLibrary
 ' تم استدعاء المكتبة للحصول على دالة تحويل الصور الى بي دي اف
 Imports System.Drawing.Printing ' لتفعيل مكاتب الطباعة 
 
+Imports System.Net.Mail ' المكتبة التي سوف نستخدمها للتعامل مع الايميل
+Imports System.Net ' 
 
 
 Public Class ProjectClass
@@ -1530,12 +1532,12 @@ Public Class ProjectClass
                 zz.ShowDialog() ' نعرضها 
                 If zz.InputText = Nothing Then Return ' في حاله كان الحقل فارغ بعد قم بالخروج 
                 If zz.InputText = dt.Rows(0).Item("FilePassword") Then ' اذا كانت كلمة المرور المكتوبة بالحقل مساوية لكلمة المرور الاصلية 
-                    OpenSelectedFileInArchivedTree(xx, dt) ' يتم استدعاء داله الفتح للملف 
+                    OpenSelectedFileInArchivedTree(xx, dt) ' يتم استدعاء داله الفتح للملف وتمرير الملف له 
                 Else ' في حاله ان كلمة المرور خاطئة تظهر الرسالة هذه 
                     MessageBox.Show("معذرةً ، كلمة المرور الذي ادخلتها غير صحيحة", "رسالة تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
             Else ' في حاله لم يكن الملف محمي 
-                OpenSelectedFileInArchivedTree(xx, dt) ' يتم استدعاء داله الفتح للملف  مباشرة 
+                OpenSelectedFileInArchivedTree(xx, dt) ' يتم استدعاء داله الفتح للملف مباشرة وتمرير الملف له 
             End If
             dt.Dispose()
 
@@ -1544,8 +1546,8 @@ Public Class ProjectClass
         If op = False Then ' في حالة كان خطأ اي 0 فالاختيار للتعديل 
 
             Dim dt As New DataTable
-            dt = GetInfo_OF_SelectedFileInArchivedTree(CDec(xx.TreeView1.SelectedNode.Tag), My.Settings.FilePath & "Archived Files\") ' يتم اسناد البيانات او المعلومات الخاصه بالملف الى الجدول الذي هنا عبر استدعاء دالة جلب معلومات الملف المحدد 
-            If dt.Rows(0).Item("isFileSecret") = True Then ' فحص ماذا كانت قيمة العمود 1 اي ان الملف محمي 
+            dt = GetInfo_OF_SelectedFileInArchivedTree(CDec(xx.TreeView1.SelectedNode.Tag), My.Settings.FilePath & "Archived Files\") ' يتم اسناد البيانات او المعلومات الخاصه بالملف الى الجدول الذي هنا عبر استدعاء دالة جلب معلومات الملف المحدد ونمرر للدالة رقم الملف الموجود في خاصية التاج في العقدة الشجرية ونمرر لها ايضا مسار الملف الكامل الخاص بالتخزين وندمجه مع اسم المجلد على القرص  
+            If dt.Rows(0).Item("isFileSecret") = True Then ' فحص ماذا كانت قيمة العمود 1 اي ان الملف محمي عن طريق القيمة الراجعة من الاستعلام 
                 Dim zz As New FrmPassword  ' نقوم بانشاء كائن من واجهة كلمة المرور
                 zz.ShowDialog() ' نعرضها 
                 If zz.InputText = Nothing Then Return ' في حاله كان الحقل فارغ بعد قم بالخروج 
@@ -2198,11 +2200,125 @@ Public Class ProjectClass
 
 #End Region
 
-    '#Region " ارسال الملف عبر الايميل"
+#Region " ارسال الملف عبر الايميل"
+
+    ' داله التنظيف للكنترول - الادوات 
+    Public Sub ClearMessageControls(ByVal xx As FrmEMail)
+        'xx.SenderAddress.Clear()
+        'xx.SenderAccPassword.Clear()
+        xx.ReceiverAddress.Clear()
+        xx.txtCopyTo.Clear()
+        xx.txtHidenCopyTo.Clear()
+        xx.txtSubject.Clear()
+        xx.txtMessageBody.Clear()
+        xx.AtatchName.Tag = Nothing ' نفرغ التاج لان فيها سيكون مسار الخاص بالملف 
+        xx.AtatchName.Clear()
+        xx.CombSMTPServers.SelectedIndex = 0 ' يحدد على اول عنصر في القائمة
+        xx.btnSend.Enabled = True
+        xx.SenderAddress.Focus()
+        xx.CkShowHide.Checked = False
+        xx.Ck1.Checked = False
+        xx.Ck2.Checked = False
+    End Sub
+
+    ' تم تعريف الكتبات الدت نيت و الايميل  في الاعلى لاستخدامهم في هذه الدالة
+    ' Send Email Message داله ارسال الايميل
+    Public Sub Send_Email_Message(ByVal xx As FrmEMail)
+        Try
+
+            ' للتحقق من ادخال الحقول 
+            If MyTextNull(xx.SenderAddress, "المرسل") Then Return
+            If MyTextNull(xx.SenderAccPassword, "كلمة المرور") Then Return
+            If MyTextNull(xx.ReceiverAddress, "المستلم") Then Return
+            If MyCombIndexNull(xx.CombSMTPServers, "السيرفر") Then Return
+            If MyCombIndexNull(xx.CombPorts, "البورت") Then Return
+            If MyTextNull(xx.txtSubject, "عنوان الرسالة") Then Return
+            If MyRichTextNull(xx.txtMessageBody, "نص الرسالة") Then Return
 
 
+            Dim smtp = New SmtpClient(xx.CombSMTPServers.Text, xx.CombPorts.Text.Trim) ' نعرف كائن من كلاس اسمتيبي كلاينت ونمرر له السرفر المحدد و رقم البورت
+            smtp.EnableSsl = True ' نفعل  خاصية ال ssl لتشفير عملية الارسال
+            smtp.UseDefaultCredentials = False ' نجعل خاصية اوراق الاعتماد الافتراضية ب 0 اي غير مفعلة لكي لانرسل عبر الافتراضي 
+            smtp.Credentials = New NetworkCredential(xx.SenderAddress.Text, xx.SenderAccPassword.Text) ' نجعل اوراق الاعتماد تاخذ تستخدم اوراق الاعماد عبر الانترنت ونمرر له البريد المرسل و كلمة السر  لكي يقوم بالتحقق من ان المرسل هو صاحب الحساب الحقيقي
+            Dim MailMessage = New MailMessage(xx.SenderAddress.Text, xx.ReceiverAddress.Text, xx.txtSubject.Text, xx.txtMessageBody.Text) ' اجراء الارسال الموجود في الكلاس ضمن المكتبة المضمنة في الاعلى ونمرر له بريد المرسل و بريد المستقبل والموضوع الخاص بالرسالة و نص الرسالة
+            MailMessage.Priority = MailPriority.High ' اعطاء الاولوية لهذه الرسالة ونجعلها عالية
 
-    '#End Region
+            If xx.Ck1.Checked And xx.txtCopyTo.Text.Trim <> String.Empty Then MailMessage.CC.Add(xx.txtCopyTo.Text) ' في حال كان مربع الاختيار الخاص ب نسخة الى محدد وايضا حقل البريد الخاص به ليس فارغا سوف يرسل نسخة كاربونية للبريد عبر خاصية سس ونمرر لها البريد الموجود في الحقل   ولكن في الحاله هذه سيعرف المستقبل انه تم عمل نسخة كربونية لبريد اخر 
+            If xx.Ck2.Checked And xx.txtHidenCopyTo.Text.Trim <> String.Empty Then MailMessage.Bcc.Add(xx.txtHidenCopyTo.Text) ' في حال كان مربع الاختيار الخاص ب نسخة مخفية الى محدد وايضا حقل البريد الخاص به ليس فارغا سوف يرسل نسخة كاربونية للبريد عبر خاصية ب سس ونمرر لها البريد الموجود في الحقل   ولكن في الحاله هذه لن يعرف المستقبل انه تم عمل نسخة كربونية لبريد اخر لانه تم استخدام خاصية النسخ المخفي 
+
+            ' في حاله وجود مرفق
+            If String.IsNullOrEmpty(xx.AtatchName.Tag) = False Then ' اذا كان خاصية التاج الخاصة باسم مرفق الملف ليست فارغه - حيث  اننا نخزن فيها مسار الملف
+                Dim attach = New Attachment(xx.AtatchName.Tag) ' نقوم بإرفاق ملف من خلال كلاس المرفقات ونمرر له المسار الموجود في خاصية التاج الخاصه باسم الملف  
+                MailMessage.Attachments.Add(attach) ' ونقوم باضافتها مع البيانات التي سوف ترسل عبر الميل مسج
+            End If
+
+
+            MailMessage.IsBodyHtml = True ' الفورمات الخاص بالرسالة التي سوف ترسل تصاغ ب لغة html
+            smtp.Send(MailMessage) ' نقوم بالارسال عبر داله الارسال
+
+            ' نظهر رسالة ان الارسال نجح 
+            MessageBox.Show("تم إرسال الرساله بنجاح", "رسالة تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        Catch ex As Exception
+            ' في حاله وجود خطأ ستظهر رسالة الخطأ
+            MessageBox.Show(ex.Message, "رسالة تنبيه", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation)
+        End Try
+
+    End Sub
+
+
+    ' Check IF Selected File Secret Before Send دالة التحقق من ان الملف المحدد محمي قبل الارسال الى شاشة الايميل 
+    Public Sub CheckIFSelectedFileSecretBeforeSend(ByVal xx As FrmMainPage)
+
+        Dim dt As New DataTable
+        dt = GetInfo_OF_SelectedFileInArchivedTree(CDec(xx.TreeView1.SelectedNode.Tag), My.Settings.FilePath & "Archived Files\") ' يتم اسناد البيانات او المعلومات الخاصه بالملف الى الجدول الذي هنا عبر استدعاء دالة جلب معلومات الملف المحدد ونمرر للدالة رقم الملف الموجود في خاصية التاج في العقدة الشجرية ونمرر لها ايضا مسار الملف الكامل الخاص بالتخزين وندمجه مع اسم المجلد على القرص  
+        If dt.Rows(0).Item("isFileSecret") = True Then ' فحص ماذا كانت قيمة العمود 1 اي ان الملف محمي عن طريق القيمة الراجعة من الاستعلام 
+            Dim zz As New FrmPassword  ' نقوم بانشاء كائن من واجهة كلمة المرور
+            zz.ShowDialog() ' نعرضها 
+            If zz.InputText = Nothing Then Return ' في حاله كان الحقل فارغ بعد قم بالخروج 
+            If zz.InputText = dt.Rows(0).Item("FilePassword") Then ' اذا كانت كلمة المرور المكتوبة بالحقل مساوية لكلمة المرور الاصلية 
+                SendFilePathToFrmEmail(xx, dt) ' يتم استدعاء داله ارسال الملف لشاشة الايميل وتمرير الملف له  
+            Else ' في حاله ان كلمة المرور خاطئة تظهر الرسالة هذه 
+                MessageBox.Show("معذرةً ، كلمة المرور الذي ادخلتها غير صحيحة", "رسالة تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        Else ' في حاله لم يكن الملف محمي 
+            SendFilePathToFrmEmail(xx, dt) ' يتم استدعاء داله ارسال الملف لشاشة الايميل وتمرير الملف له  
+        End If
+        dt.Dispose()
+
+    End Sub
+
+    '  Send File Path To Frm Email ارسال مسار الملف الى شاشة الايميل 
+    Public Sub SendFilePathToFrmEmail(ByVal xx As FrmMainPage, ByVal dt As DataTable)
+
+        Try
+            If dt.Rows(0).Item("xx") = 0 Then ' فحص ماذا كانت قيمة العمود 0 اي ان الملف مخزن في ملفات جهاز الكمبيوتر ونعرف ذلك عن طريق القيمة الراجعة من الاستعلام المخزن الذي في الدالة السابقة 
+                Dim Frm As New FrmEMail  ' نقوم بانشاء كائن من واجهة ارسال الايميل
+                Frm.AttachPath = dt.Rows(0).Item("FileFullPath") ' نسند لمتغير مسار الملف مسار الملف حيث انه مخزن في المتغير الذي اسمه مسار الملف كاملا الراجع من الاستعلام الخاص بالاجراء المخزن 
+                Frm.Show() ' نعرضها 
+
+            Else ' في حاله ان الملف مخزن على قاعدة البيانات 
+
+                Dim FileData() As Byte = CType(dt.Rows(0).Item("FileData"), Byte()) ' نقوم بتعريف مسفوفة بيانات ونسند لها الملف الموجود في متغير بيانات الملف الراجع من استعلام الملف في الاجراء المخزن وبيانات الملف تكون كنوع باينري داتا 
+                Dim FileStream As New FileStream(dt.Rows(0).Item("FullName"), FileMode.OpenOrCreate, FileAccess.Write) ' يتم فتح مساحة في الذاكرة لتحميل الملف فيها عبر مسار الملف حيث انه مخزن في المتغير الاسم كاملا الراجع من الاستعلام الخاص بالاجراء المخزن ونوع الملف فتح او انشاء ونوع وصول الملف هو كتابة 
+                FileStream.Write(FileData, 0, FileData.Length) ' نكتب البيانات في المساحة  عن طريق اسناد لها مصفوفة الملف الثنائية و 0 تبدا الكتابة من اول الملف و وتنتم الكتابة ع حسب طول الملف اي العملية تكون كدوارة تكتب على بت بت 
+                FileStream.Close() ' نغلق المساحة 
+
+                Dim Frm As New FrmEMail  ' نقوم بانشاء كائن من واجهة ارسال الايميل
+                Frm.AttachPath = dt.Rows(0).Item("FullName") ' نسند لمتغير مسار الملف  مسار الملف حيث انه مخزن في المتغير الاسم كاملا الراجع من الاستعلام الخاص بالاجراء المخزن 
+                Frm.Show() ' نعرضها 
+
+            End If ' انهاء فحص معرفة مكان تخزين الملف 
+
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+    End Sub
+
+
+#End Region
 
 
 
