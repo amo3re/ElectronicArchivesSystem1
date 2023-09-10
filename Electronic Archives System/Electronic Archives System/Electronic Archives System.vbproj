@@ -183,6 +183,12 @@
     <Compile Include="Forms\FrmUserRoles.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\FrmCyclePin1.Designer.vb">
+      <DependentUpon>FrmCyclePin1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmCyclePin1.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modules\ConnectionModule.vb" />
     <Compile Include="Modules\PublicModule.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -210,6 +216,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmCyclePin.resx">
       <DependentUpon>FrmCyclePin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmCyclePin1.resx">
+      <DependentUpon>FrmCyclePin1.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmDatabase.resx">
       <DependentUpon>FrmDatabase.vb</DependentUpon>

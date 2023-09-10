@@ -199,6 +199,12 @@ Module PublicModule
         t.Start()
     End Sub
 
+    ' إجرائية ظهور الرسالة بعد حداث الحفظ والتعديل و الاضافه و ظهور الايقونة وتفعيل المؤقت 
+    Public Sub ClearConfirmMessageTools(ByVal lbl As Label, ByVal pic As PictureBox, ByVal t As Timer)
+        lbl.Text = Nothing
+        pic.Image = Nothing
+        t.Stop()
+    End Sub
 
 #End Region
 
@@ -251,6 +257,7 @@ Module PublicModule
         End Try
     End Sub
 
+
     ' الدالة الخاصة باستعادة الملفات عن طريق تغيير قيمة حقل از دليتيد الى 0
     Public Sub ReturnRecord(ByVal Id As String)
         Try
@@ -265,6 +272,25 @@ Module PublicModule
             MessageBox.Show(ex.Message, "Erorr Message", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
+
+    ' نفس الدالة التي اعلى منها ولكنها عامة وليست خاصة مثل التي اعلى منها 
+    ' الدالة الخاصة باستعادة اي ملف او جدول او مستخدم عن طريق تغيير قيمة حقل از دليتيد الى 0
+    Public Sub ReturnRecord(ByVal TableName As String, ByVal ColumnOfID As String, ByVal Id As String)
+        Try
+            Dim DT As New DataTable
+            Dim da As New SqlDataAdapter
+            da = New SqlDataAdapter(" Update " & TableName & " set IsDeleted = 'False' where " & ColumnOfID & " = " & Id & "", Con)
+            da.Fill(DT)
+            DT.Dispose()
+            da.Dispose()
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Erorr Message", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+
 
 
 
@@ -356,6 +382,23 @@ Module PublicModule
     End Sub
 
 
+    ' To Delete Files Contained im Folder اجراء حذف جميع الملفات او المجلدات التي تحتوي على المجلد الذي سيتم حذفه وتستقبل هذه الدالة مسار المجلد - وسوف نستدعيه عند اغلاق البرنامج ككل
+    Public Sub DeleteFolders(ByVal FPath As String)
+
+        Try
+            If Directory.Exists(FPath) Then
+                
+                ' Delete all child from the Directories
+                For Each dir As String In Directory.GetDirectories(FPath)
+                    DeleteDirectory(dir)
+                Next
+
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Erorr Message", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+    End Sub
 
 
 #End Region

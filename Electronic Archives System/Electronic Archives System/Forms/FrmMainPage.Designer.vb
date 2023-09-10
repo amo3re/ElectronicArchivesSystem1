@@ -287,7 +287,7 @@ Partial Class FrmMainPage
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnAddFolderToolStrip, Me.btnEditFolderToolStrip, Me.btnDeleteFolderToolStrip, Me.ToolStripSeparator1, Me.btnOpenSelectedFileToolStrip, Me.ToolStripSeparator2, Me.btnAddFileToolStrip, Me.btnUpdateFileToolStrip, Me.btnDeleteFileToolStrip, Me.ToolStripSeparator3, Me.btnCopyFileToolStrip, Me.ToolStripSeparator4, Me.btnExpandToolStrip, Me.btnCollapseToolStrip, Me.ToolStripSeparator5, Me.btnRefreshToolStrip, Me.ToolStripSeparator6, Me.btnSendFileToolStrip})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(180, 350)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(180, 328)
         '
         'btnAddFolderToolStrip
         '

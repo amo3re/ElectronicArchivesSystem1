@@ -54,9 +54,7 @@
     End Sub
 
     Private Sub Timer1_Tick_1(sender As Object, e As EventArgs) Handles Timer1.Tick
-        lblconfirmMessage.Text = Nothing
-        PicMessage.Image = Nothing
-        Timer1.Stop()
+        ClearConfirmMessageTools(Me.lblconfirmMessage, Me.PicMessage, Me.Timer1)
     End Sub
 
 

@@ -25,9 +25,11 @@ Partial Class FrmServerConnection1
         Me.components = New System.ComponentModel.Container()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.btnhelp = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripLabel1 = New System.Windows.Forms.ToolStripLabel()
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.lblConfirmMsg = New System.Windows.Forms.Label()
+        Me.PicMsg = New System.Windows.Forms.PictureBox()
         Me.Panel7 = New System.Windows.Forms.Panel()
         Me.ToolStrip2 = New System.Windows.Forms.ToolStrip()
         Me.btnNew = New System.Windows.Forms.ToolStripButton()
@@ -43,23 +45,23 @@ Partial Class FrmServerConnection1
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.CKShow1 = New System.Windows.Forms.CheckBox()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.UserPassword = New System.Windows.Forms.TextBox()
         Me.UserId = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.CombAuth = New System.Windows.Forms.ComboBox()
         Me.CombServers = New System.Windows.Forms.ComboBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.CKShow2 = New System.Windows.Forms.CheckBox()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
         Me.txtIPAddress = New System.Windows.Forms.TextBox()
-        Me.Label7 = New System.Windows.Forms.Label()
         Me.txtUserName = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.txtPort = New System.Windows.Forms.TextBox()
-        Me.Label5 = New System.Windows.Forms.Label()
         Me.txtPassword = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.WANConString = New System.Windows.Forms.TextBox()
         Me.rbWAN = New System.Windows.Forms.RadioButton()
@@ -68,18 +70,16 @@ Partial Class FrmServerConnection1
         Me.Label9 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.PicMsg = New System.Windows.Forms.PictureBox()
-        Me.btnhelp = New System.Windows.Forms.ToolStripButton()
         Me.Panel1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.Panel8.SuspendLayout()
+        CType(Me.PicMsg, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel7.SuspendLayout()
         Me.ToolStrip2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
-        CType(Me.PicMsg, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
@@ -102,6 +102,16 @@ Partial Class FrmServerConnection1
         Me.ToolStrip1.Size = New System.Drawing.Size(532, 41)
         Me.ToolStrip1.TabIndex = 0
         Me.ToolStrip1.Text = "ToolStrip1"
+        '
+        'btnhelp
+        '
+        Me.btnhelp.AutoSize = False
+        Me.btnhelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnhelp.Image = Global.Electronic_Archives_System.My.Resources.Resources.Index_16x16
+        Me.btnhelp.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnhelp.Name = "btnhelp"
+        Me.btnhelp.Size = New System.Drawing.Size(35, 35)
+        Me.btnhelp.Text = "إرسال ملف"
         '
         'ToolStripLabel1
         '
@@ -134,6 +144,15 @@ Partial Class FrmServerConnection1
         Me.lblConfirmMsg.Size = New System.Drawing.Size(386, 28)
         Me.lblConfirmMsg.TabIndex = 14
         Me.lblConfirmMsg.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'PicMsg
+        '
+        Me.PicMsg.Dock = System.Windows.Forms.DockStyle.Right
+        Me.PicMsg.Location = New System.Drawing.Point(504, 0)
+        Me.PicMsg.Name = "PicMsg"
+        Me.PicMsg.Size = New System.Drawing.Size(26, 28)
+        Me.PicMsg.TabIndex = 13
+        Me.PicMsg.TabStop = False
         '
         'Panel7
         '
@@ -281,36 +300,6 @@ Partial Class FrmServerConnection1
         Me.Label4.TabIndex = 2
         Me.Label4.Text = "كلمة السر"
         '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Sakkal Majalla", 16.0!, System.Drawing.FontStyle.Bold)
-        Me.Label3.Location = New System.Drawing.Point(399, 73)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(105, 28)
-        Me.Label3.TabIndex = 2
-        Me.Label3.Text = "اسم المستخدم"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Sakkal Majalla", 16.0!, System.Drawing.FontStyle.Bold)
-        Me.Label2.Location = New System.Drawing.Point(394, 43)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(110, 28)
-        Me.Label2.TabIndex = 2
-        Me.Label2.Text = "طريقة الدخول "
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Sakkal Majalla", 16.0!, System.Drawing.FontStyle.Bold)
-        Me.Label1.Location = New System.Drawing.Point(405, 13)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(90, 28)
-        Me.Label1.TabIndex = 2
-        Me.Label1.Text = "اسم السرفر"
-        '
         'UserPassword
         '
         Me.UserPassword.BackColor = System.Drawing.SystemColors.Window
@@ -331,6 +320,26 @@ Partial Class FrmServerConnection1
         Me.UserId.Name = "UserId"
         Me.UserId.Size = New System.Drawing.Size(317, 26)
         Me.UserId.TabIndex = 1
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Sakkal Majalla", 16.0!, System.Drawing.FontStyle.Bold)
+        Me.Label3.Location = New System.Drawing.Point(399, 73)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(105, 28)
+        Me.Label3.TabIndex = 2
+        Me.Label3.Text = "اسم المستخدم"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Sakkal Majalla", 16.0!, System.Drawing.FontStyle.Bold)
+        Me.Label2.Location = New System.Drawing.Point(394, 43)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(110, 28)
+        Me.Label2.TabIndex = 2
+        Me.Label2.Text = "طريقة الدخول "
         '
         'CombAuth
         '
@@ -358,6 +367,16 @@ Partial Class FrmServerConnection1
         Me.CombServers.Size = New System.Drawing.Size(317, 26)
         Me.CombServers.TabIndex = 0
         Me.ToolTip1.SetToolTip(Me.CombServers, "اختر اسم السيرفر")
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Sakkal Majalla", 16.0!, System.Drawing.FontStyle.Bold)
+        Me.Label1.Location = New System.Drawing.Point(405, 13)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(90, 28)
+        Me.Label1.TabIndex = 2
+        Me.Label1.Text = "اسم السرفر"
         '
         'GroupBox2
         '
@@ -400,16 +419,6 @@ Partial Class FrmServerConnection1
         Me.Label8.TabIndex = 2
         Me.Label8.Text = "رقم البورت "
         '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Sakkal Majalla", 16.0!, System.Drawing.FontStyle.Bold)
-        Me.Label6.Location = New System.Drawing.Point(402, 105)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(77, 28)
-        Me.Label6.TabIndex = 2
-        Me.Label6.Text = "كلمة السر"
-        '
         'txtIPAddress
         '
         Me.txtIPAddress.BackColor = System.Drawing.Color.White
@@ -420,16 +429,6 @@ Partial Class FrmServerConnection1
         Me.txtIPAddress.Size = New System.Drawing.Size(317, 26)
         Me.txtIPAddress.TabIndex = 1
         '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Sakkal Majalla", 16.0!, System.Drawing.FontStyle.Bold)
-        Me.Label7.Location = New System.Drawing.Point(380, 11)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(119, 28)
-        Me.Label7.TabIndex = 2
-        Me.Label7.Text = "عنوان IP السرفر"
-        '
         'txtUserName
         '
         Me.txtUserName.BackColor = System.Drawing.Color.White
@@ -439,6 +438,16 @@ Partial Class FrmServerConnection1
         Me.txtUserName.Name = "txtUserName"
         Me.txtUserName.Size = New System.Drawing.Size(317, 26)
         Me.txtUserName.TabIndex = 1
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Sakkal Majalla", 16.0!, System.Drawing.FontStyle.Bold)
+        Me.Label6.Location = New System.Drawing.Point(402, 105)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(77, 28)
+        Me.Label6.TabIndex = 2
+        Me.Label6.Text = "كلمة السر"
         '
         'txtPort
         '
@@ -452,16 +461,6 @@ Partial Class FrmServerConnection1
         Me.txtPort.Text = "1433"
         Me.ToolTip1.SetToolTip(Me.txtPort, "عنوان البورت الافتراضي ل السيكول سيرفر")
         '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Sakkal Majalla", 16.0!, System.Drawing.FontStyle.Bold)
-        Me.Label5.Location = New System.Drawing.Point(393, 74)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(105, 28)
-        Me.Label5.TabIndex = 2
-        Me.Label5.Text = "اسم المستخدم"
-        '
         'txtPassword
         '
         Me.txtPassword.BackColor = System.Drawing.Color.White
@@ -472,6 +471,26 @@ Partial Class FrmServerConnection1
         Me.txtPassword.Size = New System.Drawing.Size(317, 26)
         Me.txtPassword.TabIndex = 1
         Me.txtPassword.UseSystemPasswordChar = True
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Sakkal Majalla", 16.0!, System.Drawing.FontStyle.Bold)
+        Me.Label7.Location = New System.Drawing.Point(380, 11)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(119, 28)
+        Me.Label7.TabIndex = 2
+        Me.Label7.Text = "عنوان IP السرفر"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Sakkal Majalla", 16.0!, System.Drawing.FontStyle.Bold)
+        Me.Label5.Location = New System.Drawing.Point(393, 74)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(105, 28)
+        Me.Label5.TabIndex = 2
+        Me.Label5.Text = "اسم المستخدم"
         '
         'GroupBox4
         '
@@ -560,25 +579,6 @@ Partial Class FrmServerConnection1
         '
         Me.Timer1.Interval = 3000
         '
-        'PicMsg
-        '
-        Me.PicMsg.Dock = System.Windows.Forms.DockStyle.Right
-        Me.PicMsg.Location = New System.Drawing.Point(504, 0)
-        Me.PicMsg.Name = "PicMsg"
-        Me.PicMsg.Size = New System.Drawing.Size(26, 28)
-        Me.PicMsg.TabIndex = 13
-        Me.PicMsg.TabStop = False
-        '
-        'btnhelp
-        '
-        Me.btnhelp.AutoSize = False
-        Me.btnhelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnhelp.Image = Global.Electronic_Archives_System.My.Resources.Resources.Index_16x16
-        Me.btnhelp.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnhelp.Name = "btnhelp"
-        Me.btnhelp.Size = New System.Drawing.Size(35, 35)
-        Me.btnhelp.Text = "إرسال ملف"
-        '
         'FrmServerConnection1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -607,6 +607,7 @@ Partial Class FrmServerConnection1
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
         Me.Panel8.ResumeLayout(False)
+        CType(Me.PicMsg, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel7.ResumeLayout(False)
         Me.Panel7.PerformLayout()
         Me.ToolStrip2.ResumeLayout(False)
@@ -619,7 +620,6 @@ Partial Class FrmServerConnection1
         Me.GroupBox4.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
-        CType(Me.PicMsg, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

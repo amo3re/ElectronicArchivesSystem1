@@ -22,22 +22,17 @@ Partial Class FrmServerCon
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.btnhelp = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripLabel1 = New System.Windows.Forms.ToolStripLabel()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.ToolStrip2 = New System.Windows.Forms.ToolStrip()
-        Me.btnTest = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.btnSave = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.btnRest = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
-        Me.btnClose = New System.Windows.Forms.ToolStripButton()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.lblconfirmMessage = New System.Windows.Forms.Label()
-        Me.PicMessage = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.CmbServerName = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -48,6 +43,13 @@ Partial Class FrmServerCon
         Me.txtUserName = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.CombDatabases = New System.Windows.Forms.ComboBox()
+        Me.PicMessage = New System.Windows.Forms.PictureBox()
+        Me.btnTest = New System.Windows.Forms.ToolStripButton()
+        Me.btnSave = New System.Windows.Forms.ToolStripButton()
+        Me.btnRest = New System.Windows.Forms.ToolStripButton()
+        Me.btnClose = New System.Windows.Forms.ToolStripButton()
+        Me.btnhelp = New System.Windows.Forms.ToolStripButton()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Panel1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -76,16 +78,6 @@ Partial Class FrmServerCon
         Me.ToolStrip1.Size = New System.Drawing.Size(551, 43)
         Me.ToolStrip1.TabIndex = 1
         Me.ToolStrip1.Text = "ToolStrip1"
-        '
-        'btnhelp
-        '
-        Me.btnhelp.AutoSize = False
-        Me.btnhelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnhelp.Image = Global.Electronic_Archives_System.My.Resources.Resources.Index_16x16
-        Me.btnhelp.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnhelp.Name = "btnhelp"
-        Me.btnhelp.Size = New System.Drawing.Size(35, 35)
-        Me.btnhelp.Text = "إرسال ملف"
         '
         'ToolStripLabel1
         '
@@ -119,52 +111,20 @@ Partial Class FrmServerCon
         Me.ToolStrip2.TabIndex = 1
         Me.ToolStrip2.Text = "ToolStrip2"
         '
-        'btnTest
-        '
-        Me.btnTest.Image = Global.Electronic_Archives_System.My.Resources.Resources.MarqueeZoom_16x16
-        Me.btnTest.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnTest.Name = "btnTest"
-        Me.btnTest.Size = New System.Drawing.Size(169, 34)
-        Me.btnTest.Text = "فحص الاتصال بالسيرفر"
-        '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 37)
-        '
-        'btnSave
-        '
-        Me.btnSave.Image = Global.Electronic_Archives_System.My.Resources.Resources.Save_16x16__4_
-        Me.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(123, 34)
-        Me.btnSave.Text = "حفظ الإعدادات"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
         Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 37)
         '
-        'btnRest
-        '
-        Me.btnRest.Image = Global.Electronic_Archives_System.My.Resources.Resources.Delete_24x24
-        Me.btnRest.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnRest.Name = "btnRest"
-        Me.btnRest.Size = New System.Drawing.Size(119, 34)
-        Me.btnRest.Text = "إلغاء الإعدادات"
-        '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
         Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 37)
-        '
-        'btnClose
-        '
-        Me.btnClose.Image = Global.Electronic_Archives_System.My.Resources.Resources.exitallb
-        Me.btnClose.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(64, 34)
-        Me.btnClose.Text = "إغلاق"
         '
         'Panel3
         '
@@ -186,15 +146,6 @@ Partial Class FrmServerCon
         Me.lblconfirmMessage.Size = New System.Drawing.Size(320, 29)
         Me.lblconfirmMessage.TabIndex = 3
         Me.lblconfirmMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'PicMessage
-        '
-        Me.PicMessage.Dock = System.Windows.Forms.DockStyle.Right
-        Me.PicMessage.Location = New System.Drawing.Point(517, 0)
-        Me.PicMessage.Name = "PicMessage"
-        Me.PicMessage.Size = New System.Drawing.Size(32, 29)
-        Me.PicMessage.TabIndex = 3
-        Me.PicMessage.TabStop = False
         '
         'Label1
         '
@@ -300,6 +251,61 @@ Partial Class FrmServerCon
         Me.CombDatabases.Size = New System.Drawing.Size(290, 30)
         Me.CombDatabases.TabIndex = 6
         '
+        'PicMessage
+        '
+        Me.PicMessage.Dock = System.Windows.Forms.DockStyle.Right
+        Me.PicMessage.Location = New System.Drawing.Point(517, 0)
+        Me.PicMessage.Name = "PicMessage"
+        Me.PicMessage.Size = New System.Drawing.Size(32, 29)
+        Me.PicMessage.TabIndex = 3
+        Me.PicMessage.TabStop = False
+        '
+        'btnTest
+        '
+        Me.btnTest.Image = Global.Electronic_Archives_System.My.Resources.Resources.MarqueeZoom_16x16
+        Me.btnTest.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnTest.Name = "btnTest"
+        Me.btnTest.Size = New System.Drawing.Size(169, 34)
+        Me.btnTest.Text = "فحص الاتصال بالسيرفر"
+        '
+        'btnSave
+        '
+        Me.btnSave.Image = Global.Electronic_Archives_System.My.Resources.Resources.Save_16x16__4_
+        Me.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnSave.Name = "btnSave"
+        Me.btnSave.Size = New System.Drawing.Size(123, 34)
+        Me.btnSave.Text = "حفظ الإعدادات"
+        '
+        'btnRest
+        '
+        Me.btnRest.Image = Global.Electronic_Archives_System.My.Resources.Resources.Delete_24x24
+        Me.btnRest.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnRest.Name = "btnRest"
+        Me.btnRest.Size = New System.Drawing.Size(119, 34)
+        Me.btnRest.Text = "إلغاء الإعدادات"
+        '
+        'btnClose
+        '
+        Me.btnClose.Image = Global.Electronic_Archives_System.My.Resources.Resources.exitallb
+        Me.btnClose.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnClose.Name = "btnClose"
+        Me.btnClose.Size = New System.Drawing.Size(64, 34)
+        Me.btnClose.Text = "إغلاق"
+        '
+        'btnhelp
+        '
+        Me.btnhelp.AutoSize = False
+        Me.btnhelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnhelp.Image = Global.Electronic_Archives_System.My.Resources.Resources.Index_16x16
+        Me.btnhelp.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnhelp.Name = "btnhelp"
+        Me.btnhelp.Size = New System.Drawing.Size(35, 35)
+        Me.btnhelp.Text = "إرسال ملف"
+        '
+        'Timer1
+        '
+        Me.Timer1.Interval = 3000
+        '
         'FrmServerCon
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -367,4 +373,5 @@ Partial Class FrmServerCon
     Friend WithEvents txtUserName As System.Windows.Forms.TextBox
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents CombDatabases As System.Windows.Forms.ComboBox
+    Friend WithEvents Timer1 As System.Windows.Forms.Timer
 End Class

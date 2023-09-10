@@ -207,9 +207,7 @@ Public Class FrmAddfiles
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        lblconfirmMessage.Text = Nothing
-        PicMessage.Image = Nothing
-        Timer1.Stop()
+        ClearConfirmMessageTools(Me.lblconfirmMessage, Me.PicMessage, Me.Timer1)
     End Sub
 
     Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click

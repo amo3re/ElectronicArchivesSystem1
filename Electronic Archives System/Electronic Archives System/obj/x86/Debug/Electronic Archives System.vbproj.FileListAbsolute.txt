@@ -54,3 +54,4 @@ C:\Users\Eng.Omar\Documents\Visual Studio 2013\Projects\Electronic Archives Syst
 C:\Users\Eng.Omar\Documents\Visual Studio 2013\Projects\Electronic Archives System\Electronic Archives System\obj\x86\Debug\Electronic_Archives_System.FrmPassword.resources
 C:\Users\Eng.Omar\Documents\Visual Studio 2013\Projects\Electronic Archives System\Electronic Archives System\obj\x86\Debug\Electronic_Archives_System.FrmServerConnection.resources
 C:\Users\Eng.Omar\Documents\Visual Studio 2013\Projects\Electronic Archives System\Electronic Archives System\obj\x86\Debug\Electronic_Archives_System.FrmServerConnection1.resources
+C:\Users\Eng.Omar\Documents\Visual Studio 2013\Projects\Electronic Archives System\Electronic Archives System\obj\x86\Debug\Electronic_Archives_System.FrmCyclePin1.resources

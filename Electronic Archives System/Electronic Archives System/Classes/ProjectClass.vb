@@ -7,7 +7,7 @@ Imports System.Drawing.Printing ' لتفعيل مكاتب الطباعة
 
 Imports System.Net.Mail ' المكتبة التي سوف نستخدمها للتعامل مع الايميل
 Imports System.Net ' 
-
+Imports Microsoft.Win32 ' للتعامل مع الريجستري
 
 Public Class ProjectClass
 
@@ -2198,6 +2198,115 @@ Public Class ProjectClass
         End Try
     End Sub
 
+
+    ' اجراء استعادة كل الجداول دفعة واحدة
+    Public Sub ReturnAllFolders(ByVal xx As FrmCyclePin1)
+
+        Try
+            If MessageBox.Show(" هل تود استعادة جميع الجداول في القائمه ؟", "استعادة ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then ' رساله تبين تاكيد هل تريد الاستعادة اذا كان نعم قم بعمل التالي
+
+                For i As Int32 = xx.dgv.Rows.Count - 1 To 0 Step -1 ' هذه دوارة عكسية تبدا من رقم السجلات الخاصة بالداتا جريد فيو وتتناقص في كل دورة
+                    ReturnRecord("Folders", "FolderID", xx.dgv.Rows(i).Cells(0).Value) '  قم باستدعاء اجراء اعادة السجل وتقوم بتمرير قيمة الفولدر ايدي المخفية  في الصف حسب الدوراة
+                    xx.dgv.Rows.RemoveAt(i) ' قم بحذف السجل من الداتا جريد فيو
+                Next
+
+                ConfirmMessage(xx.lblconfirmMessage, xx.PicMessage, xx.Timer1, " تم استعادة الكل بنجاح ") ' وقم باظهار رسالة تم الاستعادة
+                xx.lblCount.Text = xx.dgv.Rows.Count ' هنا نقوم باسناد عدد الصفوف الى المتغير الخاص بعدد الملفات 
+
+            End If
+            '  هنا نهاية شرط هل تريد استعادة الكل
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Erorr Message", MessageBoxButtons.OKCancel, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+
+    ' اجراء افراغ كل الجداول دفعة واحدة
+    Public Sub DeleteAllFolders(ByVal xx As FrmCyclePin1)
+        Dim zz As Short = 0 ' متغير لمعرفة هل تمت عملية حذف الجداول ام لا
+        Try
+            If MessageBox.Show(" هل تود حذف جميع الجداول في القائمه بشكل نهائي ؟", "حذف ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then ' اذا كانت نتيجة الرسالة هي نعم يقوم بالتالي
+
+                For i As Int32 = xx.dgv.Rows.Count - 1 To 0 Step -1  ' هذه دوارة عكسية تبدا من رقم السجلات الخاصة بالداتا جريد فيو وتتناقص في كل دورة
+
+                    zz = DeleteFoldersFromDataBase(CInt(xx.dgv.Rows(i).Cells(0).Value)) ' نقوم باستدعاء اجراء حذف الملف من قاعدة البيانات وتمرير له قيمة الخلية 0 في الصف حسب الدوراة وهي ايدي المخفية بعد تحويلها الى عدد صحيح والقيمة الثانية هي قيمة الخلية 7 في الصف حسب الدوراة وهي قيمة مكان الحفظ ويحولها ل بولين
+                    ' ترجع الدالة السابقة 1 اذا تم الحذف الملف من قاعدة البيانات و 0 اذا لم يتم الحذف وهذا يعين ان الملف على الجهاز وتخزن هنا في المتغير zz
+                    If zz <> 1 Then Return ' اذا كانت القيمة لاتساوي 1 الملف ليس في قاعدة البيانات اخرج من الاجراء كامل او الاف الشرطية الخاصة برسالة الحذف واذا كانت القيمة تساوي 1 استمر بباقي الكود
+                    ' سبب الخروج اذا كانت القيمة لاتساوي 1 اي انها 0 هو لان الملف ليس موجود على قاعدة البيانات فلم يستطع حذفه فيقوم باكمال الكود لحذف الملف من الجهاز 
+                    ' If CBool(xx.dgv.Rows(i).Cells(7).Value) = False Then ' نقوم بالتحقق من ان قيمة مكان الحفظ عبر الخلية 7 في الصف حسب الدوراة يساوي 0 وهي ان الملف موجود على جهاز الكمبيوتر و نقوم بعمل التالي
+                    Dim xFolderPath As String  ' تعريف متغيرين الاول لمسار المجلد والثاني لاسم الملف
+                    'xFileName = xx.dgv.Rows(i).Cells(1).Value ' نسند لمتغير اسم الملف = قيمة الخلية رقم 2 في الصف حسب الدوراة وهي تحدد اسم الملف وقيمة الخلية رقم 5 في الصف حسب الدوراة وهي تحدد الامتداد
+                    xFolderPath = My.Settings.FilePath & "Archived Files\" & xx.dgv.Rows(i).Cells(1).Value  ' نسند لمتغير مسار المجلد الاب = اسم القرص المخزن في متغير الاعدادت + اسم مجلد البرنامج مع السلاشات السابقة والاحقه + قيمة الخلية 3 في الصف حسب الدوراة وهي اسم المجلد الاب + باك سلاش اخيره
+                    'File.Delete(xFolderPath)  ' نستدعي داله حذف الملف من كلاس الملف من مكتبة الانبوت والاوتبوت لعمل حذف للملف من الجهاز ونمرر لها مسار الملف وهو لدينا في متغير مسار المجلد الاب + متغير اسم الملف 
+                    DeleteFolders(xFolderPath) ' قم باستدعاء داله حذف المجلدات مع الملفات - الموجودة في كلاس المديول العام الذي انشأناه - ويعمل على حذف الملفات التي بداخل المسار الخاص بالملف والمجلد يكون بدخله ملفات المرفقات اذا وجد مرفقات للملف ونمرر لها مسار الملف وهو لدينا في قيمة مسار المجلد الاب + قيمة الخلية 0  في الصف حسب الدوراة وهي قيمة الفايل ايدي المخفية لان ملفات المرفقات تكون جدول برقم الملف الاساسي
+                    ' End If
+                    ' اذا كانت قيمة المتغير تساوي 1 اي انه تم الحذف نقوم بالتالي 
+                    xx.dgv.Rows.RemoveAt(i) ' قم بحذف السجل من الداتا جريد فيو
+                Next
+                ConfirmMessage(xx.lblconfirmMessage, xx.PicMessage, xx.Timer1, " تم حذف الكل بنجاح ") ' وقم باظهار رسالة تم الحذف
+                xx.lblCount.Text = xx.dgv.Rows.Count  ' هنا نقوم باسناد عدد الصفوف الى المتغير الخاص بعدد الملفات 
+            End If
+            ' هنا نهاية شرط هل تريد الحذف نهائيا 
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Erorr Message", MessageBoxButtons.OKCancel, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+
+    ' اجراء البحث عن الجداول في الشجرة 
+    Public Sub Search_InDataGridViewFolders(ByVal xx As FrmCyclePin1, ByVal DT As DataTable)
+        Try
+            Dim dv As New DataView(DT) ' نقوم بتعريف داتا فيو لعرض السجلات الموجودة في جدول الداتا الممرر من الواجهة 
+            If String.IsNullOrEmpty(xx.txtSearch.Text.Trim) = False Then ' في حالة كان الحقل الخاص بالبحث ليس فارغا 
+                If xx.rbName.Checked Then ' تابع الشرط الكلي  -  وكان الراديو بوتن الخاص باسم الملف موشر عليه فيعني ان البحث سيكون باسم الملف 
+                    dv.RowFilter = "FolderName like '%" & xx.txtSearch.Text.Trim & "%'" ' قم بعمل فورمات للصفوف بنائا على اسم الملف ويكون بين علامتي بالمئة لكي يطلع اي حرف موجود بالاسم سواء كان بالبداية او النهاية
+                ElseIf xx.rbNumber.Checked Then ' تابع الشرط الكلي  -  وكان الراديو بوتن الخاص رقم الملف موشر عليه فيعني ان البحث سيكون برقم الملف
+                    dv.RowFilter = "FolderNumber =" & xx.txtSearch.Text.Trim & "" ' قم بعمل فورمات للصفوف بنائا على رقم الملف ويجب ان يتم ادخال رقم الملف كاملا
+                End If
+                ' نهايه الشرط اذا كان الحقل ليس فارغا
+                xx.dgv.DataSource = dv ' المصدر الخاص بالداتا جريد فيو هي الداتا فيو بعد الفلترة
+            Else ' اذا كان الحقل فارغا
+                xx.dgv.DataSource = DT ' المصدر الخاص بالداتا جريد فيو هي الداتا تيبل الممرر من الواجهة كما هو
+            End If
+            ' نهاية شرط البحث
+            xx.lblCount.Text = xx.dgv.Rows.Count  ' هنا نقوم باسناد عدد الصفوف الى المتغير الخاص بعدد الملفات 
+        Catch ex As Exception
+            Exit Sub ' في حالة حصول خطأ قم بالخروج من الداله
+        End Try
+    End Sub
+
+
+    ' Delete Folders From DataBase اجراء حذف الجداول نهائيا من قاعدة البيانات
+    Public Function DeleteFoldersFromDataBase(ByVal FolderID As Integer) As Short
+
+
+
+        Dim Cmd As SqlCommand
+        Cmd = New SqlCommand("DeleteFolders", Con)
+        Cmd.CommandType = CommandType.StoredProcedure
+
+        Dim Paramter(1) As SqlParameter
+
+        Paramter(0) = New SqlParameter("@FolderID", SqlDbType.Int)
+        Paramter(0).Value = FolderID
+
+
+        ' متغير يعيد لنا قيمة بعد عملية الحذف وهذه القمية اما الرقم 1 اذا تم التنفيذ بشكل سليم واذا لا يرجع القمية 0  
+        Paramter(1) = New SqlParameter("@ID", SqlDbType.TinyInt)
+        Paramter(1).Direction = ParameterDirection.Output ' الدايركشن اي الاتجاه الخاص به هو من نوع مخرج ولي مدخل للبيانات 
+
+
+
+        Cmd.Parameters.AddRange(Paramter)
+        OpenConnection()
+        Cmd.ExecuteNonQuery()
+        CloseConnection()
+
+        Return Paramter(1).Value ' يرجع القيمة الخاص باتمام العملية ام لا بصيغة متغير شورت
+
+    End Function
+
+
 #End Region
 
 #Region " ارسال الملف عبر الايميل"
@@ -2320,6 +2429,233 @@ Public Class ProjectClass
 
 #End Region
 
+#Region " ServerCon   الاتصال بالسرفر"
 
+    ' Load Installed Server Names
+    Public Sub LoadInstalledServers(ByVal Combo As ComboBox)
+        Try
+            Dim RegKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64) '
+            Dim SubRegKey = RegKey.OpenSubKey("SOFTWARE\Microsoft\Microsoft SQL Server") '
+            Dim Instances = CType(SubRegKey.GetValue("InstalledInstances"), String()) ' 
+            '
+            If Instances.Length > 0 Then
+                For Each element As String In Instances '
+                    '
+                    If element = "MSSQLSERVER" Then
+                        Combo.Items.Add(Environment.MachineName) '
+                    Else
+                        Combo.Items.Add(Environment.MachineName + "\" + element) '
+                    End If
+                    '
+                Next element
+            End If
+        Catch ex As Exception
+            ' في حاله وجود خطأ ستظهر رسالة الخطأ
+            MessageBox.Show(ex.Message, "Erorr", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        End Try
+
+    End Sub
+
+    ' Fill Combobox By DataBase Name
+    Public Sub FillCombByDataBases(ByVal CombServer As ComboBox, ByVal ComboDBs As ComboBox)
+        Try
+           
+            If CombServer.Text.Trim <> String.Empty Then
+                ComboDBs.Items.Clear() '
+
+                Dim SqlConnSrt As String = Nothing
+                If My.Settings.LoginMothed = 0 Then
+                    ' Connection Statement by Windows Authentication
+                    SqlConnSrt = "Data Source ='" & CombServer.Text.Trim & "';Initial Catalog = master;Integrated Security=True "
+                ElseIf My.Settings.LoginMothed = 1 Then
+                    ' Connection Statement by SQL Serve Authentication
+                    SqlConnSrt = "Data Source ='" & CombServer.Text.Trim & "';Initial Catalog = master;user ID ='" & My.Settings.LoginID & "'; Password='" & My.Settings.LogPassword & "' "
+                ElseIf My.Settings.LoginMothed = 2 Then
+                    ' Connection Statement by through Network
+                    SqlConnSrt = "Data Source ='" & My.Settings.ServerIP & "','" & My.Settings.LoginPort & "' ;Network Library = DBMSSOCN; Initial Catalog = master;user ID ='" & My.Settings.LoginID & "'; Password='" & My.Settings.LogPassword & "' "
+                End If
+
+                Dim cn As New SqlConnection(SqlConnSrt) '
+                Dim da As New SqlDataAdapter("select name from sys.databases ", cn) '
+                Dim dt As New DataTable
+                da.Fill(dt) '
+
+                For i As Short = 0 To dt.Rows.Count - 1 ' 
+                    ComboDBs.Items.Add(dt.Rows(i).Item("name").ToString()) '
+                Next
+
+            End If
+
+        Catch ex As Exception
+            ' في حاله وجود خطأ ستظهر رسالة الخطأ
+            MessageBox.Show(ex.Message, "Erorr", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        End Try
+
+    End Sub
+
+    ' Show Saved Settings
+    Public Sub ShowSavedSettings(ByVal xx As FrmServerConnection1)
+
+
+        If My.Settings.LoginMothed = 0 Then
+            xx.rbLocal.Checked = True
+            xx.CombServers.Text = My.Settings.ServerName
+            xx.CombAuth.SelectedIndex = 0
+            xx.UserId.Clear()
+            xx.UserPassword.Clear()
+
+        ElseIf My.Settings.LoginMothed = 1 Then
+            xx.rbLocal.Checked = True
+            xx.CombServers.Text = My.Settings.ServerName
+            xx.CombAuth.SelectedIndex = 1
+            xx.UserId.Text = My.Settings.LoginID
+            xx.UserPassword.Text = My.Settings.LogPassword
+
+        ElseIf My.Settings.LoginMothed = 2 Then
+            xx.rbNetwork.Checked = True
+            xx.txtIPAddress.Text = My.Settings.ServerIP
+            xx.txtPort.Text = My.Settings.LoginPort
+            xx.txtUserName.Text = My.Settings.LoginID
+            xx.txtPassword.Text = My.Settings.LogPassword
+
+        ElseIf My.Settings.LoginMothed = 3 Then
+            xx.rbWAN.Checked = True
+            xx.WANConString.Text = My.Settings.WANConString
+
+        End If
+
+        xx.ComboDBs.Text = My.Settings.DataBaseName
+
+    End Sub
+
+    ' Test SQL Server Connection
+    Public Sub TestSQLServerConnection(ByVal xx As FrmServerConnection1)
+
+
+        If CheckBeforeTestSaveSetting(xx) = True Then Return
+
+        Dim SqlConnSrt As String = Nothing
+        Dim SqlConn As New SqlConnection
+
+        If xx.CombAuth.SelectedIndex = 0 And xx.rbLocal.Checked = True Then
+            ' Connection Statement by Windows Authentication
+            SqlConnSrt = "Data Source ='" & xx.CombServers.Text.Trim & "';Initial Catalog = master;Integrated Security=True "
+        ElseIf xx.CombAuth.SelectedIndex = 1 And xx.rbLocal.Checked = True Then
+            ' Connection Statement by SQL Serve Authentication
+            SqlConnSrt = "Data Source ='" & xx.CombServers.Text.Trim & "';Initial Catalog = master;user ID ='" & xx.UserId.Text.Trim & "'; Password='" & xx.UserPassword.Text.Trim & "' "
+        ElseIf xx.rbNetwork.Checked = True Then
+            ' Connection Statement by through Network
+            SqlConnSrt = "Data Source ='" & xx.txtIPAddress.Text.Trim & "','" & xx.txtPort.Text.Trim & "' ;Network Library = DBMSSOCN; Initial Catalog = master;user ID ='" & xx.txtUserName.Text.Trim & "'; Password='" & xx.txtPassword.Text.Trim & "' "
+        ElseIf xx.rbWAN.Checked = True Then
+            ' Connection Statement by through WAN Hosting
+            SqlConnSrt = xx.WANConString.Text.Trim
+        End If
+
+        SqlConn.ConnectionString = SqlConnSrt
+        If SqlConn.State = ConnectionState.Closed Then
+            Try
+                SqlConn.Open()
+                MessageBox.Show("تمت عملية الاتصال بنجاح", "فحص الاتصال", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Catch ex As Exception
+                MessageBox.Show("فشل الاتصال بالسيرفر" + vbCrLf + Err.Description, "فحص الاتصال", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End If
+
+    End Sub
+
+    ' Check Before Test Save Setting
+    Public Function CheckBeforeTestSaveSetting(ByVal xx As FrmServerConnection1) As Boolean
+
+
+        If xx.rbLocal.Checked = True Then
+            If MyCombIndexNull(xx.CombServers, "اسم السرفر") = True Then Return True
+            If xx.CombAuth.SelectedIndex = 1 Then
+                xx.CombServers.Text = My.Settings.ServerName
+                If MyTextNull(xx.UserId, "اسم المستخدم") = True Then Return True
+                If MyTextNull(xx.UserPassword, "الباسورد") = True Then Return True
+            End If
+
+        ElseIf xx.rbNetwork.Checked = True Then
+            If MyTextNull(xx.txtIPAddress, "عنوان أو اسم السيرفر") = True Then Return True
+            If MyTextNull(xx.txtPort, " رقم البورت") = True Then Return True
+            If MyTextNull(xx.txtUserName, "اسم المستخدم") = True Then Return True
+            If MyTextNull(xx.txtPassword, "الباسورد") = True Then Return True
+
+        ElseIf xx.rbWAN.Checked = True Then
+            If MyTextNull(xx.WANConString, "جملة الاتصال") = True Then Return True
+
+        End If
+
+        If MyCombIndexNull(xx.ComboDBs, "اسم قاعدة البيانات") = True Then Return True
+
+        Return False
+
+    End Function
+
+    '  Save Settings Of Sql Server
+    Public Sub Save_Conection_Settings(ByVal xx As FrmServerConnection1)
+
+        If MessageBox.Show("هل تود حفظ إعدادات الاتصال بالسيرفر", "رساله تنبيه", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+
+            If CheckBeforeTestSaveSetting(xx) = True Then Return
+
+            If xx.rbLocal.Checked = True Then
+                My.Settings.ServerName = xx.CombServers.Text.Trim
+
+                If xx.CombAuth.SelectedIndex = 0 Then
+                    My.Settings.LoginMothed = 0
+                ElseIf xx.CombAuth.SelectedIndex = 1 Then
+                    My.Settings.LoginMothed = 1
+                    My.Settings.LoginID = xx.UserId.Text.Trim
+                    My.Settings.LogPassword = xx.UserPassword.Text.Trim
+                End If
+
+            ElseIf xx.rbNetwork.Checked = True Then
+                My.Settings.LoginMothed = 2
+                My.Settings.ServerIP = xx.txtIPAddress.Text.Trim
+                My.Settings.LoginPort = xx.txtPort.Text.Trim
+                My.Settings.LoginID = xx.txtUserName.Text.Trim
+                My.Settings.LogPassword = xx.txtPassword.Text.Trim
+
+            ElseIf xx.rbWAN.Checked = True Then
+                My.Settings.LoginMothed = 3
+                My.Settings.WANConString = xx.WANConString.Text.Trim
+
+            End If
+
+            My.Settings.DataBaseName = xx.ComboDBs.Text.Trim
+            My.Settings.Save()
+
+            ConfirmMessage(xx.lblConfirmMsg, xx.PicMsg, xx.Timer1, "تم حفظ إعدادات الاتصال بالسيرفر بنجاح ...")
+        End If
+
+    End Sub
+
+    '   Reset Saved Settings Data
+    Public Sub ResetSavedSettingsData(ByVal xx As FrmServerConnection1)
+
+        If MessageBox.Show("انت على وشك إلغاء إعدادات الاتصال بالسيرفر ؟" & vbNewLine & "هل تود الإستمرار ؟", "رساله تنبيه", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+
+            My.Settings.ServerName = Nothing
+            My.Settings.DataBaseName = Nothing
+            My.Settings.LoginMothed = 0
+            My.Settings.ServerIP = Nothing
+            My.Settings.LoginID = Nothing
+            My.Settings.LogPassword = Nothing
+            My.Settings.WANConString = Nothing
+
+            xx.rbLocal.Checked = True
+            xx.CombAuth.SelectedIndex = 0
+
+            My.Settings.Save()
+
+            ConfirmMessage(xx.lblConfirmMsg, xx.PicMsg, xx.Timer1, "تم إلغاء إعدادات الاتصال بالسيرفر بنجاح ...")
+        End If
+
+    End Sub
+
+#End Region
 
 End Class

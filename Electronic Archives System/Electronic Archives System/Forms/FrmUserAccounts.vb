@@ -31,9 +31,7 @@ Public Class FrmUserAccounts
     End Sub
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
-        lblconfirmMessage.Text = Nothing
-        PicMessage.Image = Nothing
-        Timer1.Stop()
+       ClearConfirmMessageTools(Me.lblconfirmMessage, Me.PicMessage, Me.Timer1)
     End Sub
 
     Private Sub FrmUserAccounts_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown

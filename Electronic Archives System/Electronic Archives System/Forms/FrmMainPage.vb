@@ -44,8 +44,8 @@ Public Class FrmMainPage
 
     Private Sub btnSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSettings.Click
         'FrmServerCon.ShowDialog()
-        'FrmServerConnection1.ShowDialog()
-        FrmServerConnection.ShowDialog()
+        FrmServerConnection1.ShowDialog()
+        'FrmServerConnection.ShowDialog()
     End Sub
 
     Private Sub btnBackup_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBackup.Click

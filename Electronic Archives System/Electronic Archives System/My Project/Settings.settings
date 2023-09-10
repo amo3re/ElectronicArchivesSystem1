@@ -9,10 +9,10 @@
       <Value Profile="(Default)">EArchive2022</Value>
     </Setting>
     <Setting Name="LoginID" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">sa</Value>
     </Setting>
     <Setting Name="LogPassword" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">123</Value>
     </Setting>
     <Setting Name="LoginMothed" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
@@ -33,6 +33,15 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="ImgFolderPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ServerIP" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="LoginPort" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1433</Value>
+    </Setting>
+    <Setting Name="WANConString" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

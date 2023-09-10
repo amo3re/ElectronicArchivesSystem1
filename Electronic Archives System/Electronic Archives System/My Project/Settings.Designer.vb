@@ -80,7 +80,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("sa")>  _
         Public Property LoginID() As String
             Get
                 Return CType(Me("LoginID"),String)
@@ -92,7 +92,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("123")>  _
         Public Property LogPassword() As String
             Get
                 Return CType(Me("LogPassword"),String)
@@ -183,6 +183,42 @@ Namespace My
             End Get
             Set
                 Me("ImgFolderPath") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property ServerIP() As String
+            Get
+                Return CType(Me("ServerIP"),String)
+            End Get
+            Set
+                Me("ServerIP") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("1433")>  _
+        Public Property LoginPort() As String
+            Get
+                Return CType(Me("LoginPort"),String)
+            End Get
+            Set
+                Me("LoginPort") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property WANConString() As String
+            Get
+                Return CType(Me("WANConString"),String)
+            End Get
+            Set
+                Me("WANConString") = value
             End Set
         End Property
     End Class

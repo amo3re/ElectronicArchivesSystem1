@@ -15,9 +15,17 @@ Module ConnectionModule
         ElseIf My.Settings.LoginMothed = 1 Then
             ' Connection Statement by SQL Serve Authentication
             conn = New SqlConnection("Data Source ='" & My.Settings.ServerName & "';Initial Catalog ='" & My.Settings.DataBaseName & "';user ID ='" & My.Settings.LoginID & "'; Password='" & My.Settings.LogPassword & "' ")
+        ElseIf My.Settings.LoginMothed = 2 Then
+            ' Connection Statement by through Network
+            conn = New SqlConnection("Data Source ='" & My.Settings.ServerIP & "','" & My.Settings.LoginPort & "' ;Network Library = DBMSSOCN; Initial Catalog ='" & My.Settings.DataBaseName & "';user ID ='" & My.Settings.LoginID & "'; Password='" & My.Settings.LogPassword & "' ")
+        ElseIf My.Settings.LoginMothed = 3 Then
+            ' Connection Statement by through WAN Hosting
+            conn = New SqlConnection("" & My.Settings.WANConString & "")
+
         End If
 
-        Return conn
+        Return conn ' اعادة الاتصال
+
     End Function
 
 

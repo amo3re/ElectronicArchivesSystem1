@@ -25,9 +25,11 @@ Partial Class FrmServerConnection
         Me.components = New System.ComponentModel.Container()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.btnhelp = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripLabel1 = New System.Windows.Forms.ToolStripLabel()
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.lblConfirmMsg = New System.Windows.Forms.Label()
+        Me.PicMsg = New System.Windows.Forms.PictureBox()
         Me.Panel7 = New System.Windows.Forms.Panel()
         Me.ToolStrip2 = New System.Windows.Forms.ToolStrip()
         Me.btnNew = New System.Windows.Forms.ToolStripButton()
@@ -68,18 +70,16 @@ Partial Class FrmServerConnection
         Me.Label9 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.PicMsg = New System.Windows.Forms.PictureBox()
-        Me.btnhelp = New System.Windows.Forms.ToolStripButton()
         Me.Panel1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.Panel8.SuspendLayout()
+        CType(Me.PicMsg, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel7.SuspendLayout()
         Me.ToolStrip2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
-        CType(Me.PicMsg, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
@@ -102,6 +102,16 @@ Partial Class FrmServerConnection
         Me.ToolStrip1.Size = New System.Drawing.Size(532, 41)
         Me.ToolStrip1.TabIndex = 0
         Me.ToolStrip1.Text = "ToolStrip1"
+        '
+        'btnhelp
+        '
+        Me.btnhelp.AutoSize = False
+        Me.btnhelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnhelp.Image = Global.Electronic_Archives_System.My.Resources.Resources.Index_16x16
+        Me.btnhelp.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnhelp.Name = "btnhelp"
+        Me.btnhelp.Size = New System.Drawing.Size(35, 35)
+        Me.btnhelp.Text = "إرسال ملف"
         '
         'ToolStripLabel1
         '
@@ -134,6 +144,15 @@ Partial Class FrmServerConnection
         Me.lblConfirmMsg.Size = New System.Drawing.Size(386, 28)
         Me.lblConfirmMsg.TabIndex = 14
         Me.lblConfirmMsg.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'PicMsg
+        '
+        Me.PicMsg.Dock = System.Windows.Forms.DockStyle.Right
+        Me.PicMsg.Location = New System.Drawing.Point(504, 0)
+        Me.PicMsg.Name = "PicMsg"
+        Me.PicMsg.Size = New System.Drawing.Size(26, 28)
+        Me.PicMsg.TabIndex = 13
+        Me.PicMsg.TabStop = False
         '
         'Panel7
         '
@@ -557,25 +576,6 @@ Partial Class FrmServerConnection
         '
         Me.Timer1.Interval = 3000
         '
-        'PicMsg
-        '
-        Me.PicMsg.Dock = System.Windows.Forms.DockStyle.Right
-        Me.PicMsg.Location = New System.Drawing.Point(504, 0)
-        Me.PicMsg.Name = "PicMsg"
-        Me.PicMsg.Size = New System.Drawing.Size(26, 28)
-        Me.PicMsg.TabIndex = 13
-        Me.PicMsg.TabStop = False
-        '
-        'btnhelp
-        '
-        Me.btnhelp.AutoSize = False
-        Me.btnhelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnhelp.Image = Global.Electronic_Archives_System.My.Resources.Resources.Index_16x16
-        Me.btnhelp.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnhelp.Name = "btnhelp"
-        Me.btnhelp.Size = New System.Drawing.Size(35, 35)
-        Me.btnhelp.Text = "إرسال ملف"
-        '
         'FrmServerConnection
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -604,6 +604,7 @@ Partial Class FrmServerConnection
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
         Me.Panel8.ResumeLayout(False)
+        CType(Me.PicMsg, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel7.ResumeLayout(False)
         Me.Panel7.PerformLayout()
         Me.ToolStrip2.ResumeLayout(False)
@@ -616,7 +617,6 @@ Partial Class FrmServerConnection
         Me.GroupBox4.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
-        CType(Me.PicMsg, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
