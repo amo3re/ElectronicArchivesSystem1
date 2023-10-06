@@ -239,7 +239,7 @@ Partial Class FrmServerConnection1
         Me.rbLocal.Name = "rbLocal"
         Me.rbLocal.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.rbLocal.Size = New System.Drawing.Size(138, 36)
-        Me.rbLocal.TabIndex = 11
+        Me.rbLocal.TabIndex = 0
         Me.rbLocal.TabStop = True
         Me.rbLocal.Text = "الإتصال المحلي"
         Me.rbLocal.UseVisualStyleBackColor = True
@@ -254,7 +254,7 @@ Partial Class FrmServerConnection1
         Me.rbNetwork.Name = "rbNetwork"
         Me.rbNetwork.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.rbNetwork.Size = New System.Drawing.Size(179, 36)
-        Me.rbNetwork.TabIndex = 11
+        Me.rbNetwork.TabIndex = 1
         Me.rbNetwork.TabStop = True
         Me.rbNetwork.Text = "الإتصال عبر الشبكة "
         Me.rbNetwork.UseVisualStyleBackColor = True
@@ -308,7 +308,7 @@ Partial Class FrmServerConnection1
         Me.UserPassword.Location = New System.Drawing.Point(36, 104)
         Me.UserPassword.Name = "UserPassword"
         Me.UserPassword.Size = New System.Drawing.Size(317, 26)
-        Me.UserPassword.TabIndex = 1
+        Me.UserPassword.TabIndex = 3
         Me.UserPassword.UseSystemPasswordChar = True
         '
         'UserId
@@ -319,7 +319,7 @@ Partial Class FrmServerConnection1
         Me.UserId.Location = New System.Drawing.Point(36, 73)
         Me.UserId.Name = "UserId"
         Me.UserId.Size = New System.Drawing.Size(317, 26)
-        Me.UserId.TabIndex = 1
+        Me.UserId.TabIndex = 2
         '
         'Label3
         '
@@ -351,7 +351,7 @@ Partial Class FrmServerConnection1
         Me.CombAuth.Location = New System.Drawing.Point(36, 43)
         Me.CombAuth.Name = "CombAuth"
         Me.CombAuth.Size = New System.Drawing.Size(317, 26)
-        Me.CombAuth.TabIndex = 0
+        Me.CombAuth.TabIndex = 1
         Me.ToolTip1.SetToolTip(Me.CombAuth, "اختر طريقة الاتصال بالسيرفر")
         '
         'CombServers
@@ -404,7 +404,7 @@ Partial Class FrmServerConnection1
         Me.CKShow2.Location = New System.Drawing.Point(40, 108)
         Me.CKShow2.Name = "CKShow2"
         Me.CKShow2.Size = New System.Drawing.Size(46, 19)
-        Me.CKShow2.TabIndex = 3
+        Me.CKShow2.TabIndex = 4
         Me.CKShow2.Text = "إظهار"
         Me.ToolTip1.SetToolTip(Me.CKShow2, "إظهار/ إخفاء " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "   الباسورد" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10))
         Me.CKShow2.UseVisualStyleBackColor = False
@@ -427,7 +427,7 @@ Partial Class FrmServerConnection1
         Me.txtIPAddress.Location = New System.Drawing.Point(36, 12)
         Me.txtIPAddress.Name = "txtIPAddress"
         Me.txtIPAddress.Size = New System.Drawing.Size(317, 26)
-        Me.txtIPAddress.TabIndex = 1
+        Me.txtIPAddress.TabIndex = 0
         '
         'txtUserName
         '
@@ -437,7 +437,7 @@ Partial Class FrmServerConnection1
         Me.txtUserName.Location = New System.Drawing.Point(36, 73)
         Me.txtUserName.Name = "txtUserName"
         Me.txtUserName.Size = New System.Drawing.Size(317, 26)
-        Me.txtUserName.TabIndex = 1
+        Me.txtUserName.TabIndex = 2
         '
         'Label6
         '
@@ -469,7 +469,7 @@ Partial Class FrmServerConnection1
         Me.txtPassword.Location = New System.Drawing.Point(36, 104)
         Me.txtPassword.Name = "txtPassword"
         Me.txtPassword.Size = New System.Drawing.Size(317, 26)
-        Me.txtPassword.TabIndex = 1
+        Me.txtPassword.TabIndex = 3
         Me.txtPassword.UseSystemPasswordChar = True
         '
         'Label7
@@ -515,7 +515,7 @@ Partial Class FrmServerConnection1
         Me.WANConString.Name = "WANConString"
         Me.WANConString.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.WANConString.Size = New System.Drawing.Size(492, 30)
-        Me.WANConString.TabIndex = 2
+        Me.WANConString.TabIndex = 0
         '
         'rbWAN
         '
@@ -527,7 +527,7 @@ Partial Class FrmServerConnection1
         Me.rbWAN.Name = "rbWAN"
         Me.rbWAN.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.rbWAN.Size = New System.Drawing.Size(139, 36)
-        Me.rbWAN.TabIndex = 13
+        Me.rbWAN.TabIndex = 2
         Me.rbWAN.TabStop = True
         Me.rbWAN.Text = "  WAN إتصال "
         Me.rbWAN.UseVisualStyleBackColor = True

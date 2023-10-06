@@ -69,7 +69,14 @@ Public Class FrmMainPage
     End Sub
 
     Private Sub btnDeletedPin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeletedPin.Click
-        FrmCyclePin.Show(Me)
+        Try
+
+            FrmCyclePin.Show(Me)
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
     End Sub
     Private Sub btnUserRoles_Click(sender As Object, e As EventArgs) Handles btnUserRoles.Click
         FrmUserRoles.Show(Me)
@@ -206,6 +213,7 @@ Public Class FrmMainPage
     Private Sub FrmMainPage_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         cls.LoadArchiveTree(Me)
         cls.CreateTempFolder()
+        Label3.Text = LogUserName ' by me 
 
 
     End Sub
@@ -436,4 +444,14 @@ Public Class FrmMainPage
     End Sub
 
 
+    
+    Private Sub btnFolderDeletedPin_Click(sender As Object, e As EventArgs) Handles btnFolderDeletedPin.Click
+        Try
+
+            FrmCyclePin1.Show(Me)
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
 End Class
