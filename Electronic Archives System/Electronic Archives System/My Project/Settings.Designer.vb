@@ -221,6 +221,54 @@ Namespace My
                 Me("WANConString") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property BackupPath() As String
+            Get
+                Return CType(Me("BackupPath"),String)
+            End Get
+            Set
+                Me("BackupPath") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property AutoBackup() As Short
+            Get
+                Return CType(Me("AutoBackup"),Short)
+            End Get
+            Set
+                Me("AutoBackup") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property BackTimerInterval() As Long
+            Get
+                Return CType(Me("BackTimerInterval"),Long)
+            End Get
+            Set
+                Me("BackTimerInterval") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property BackupType() As Short
+            Get
+                Return CType(Me("BackupType"),Short)
+            End Get
+            Set
+                Me("BackupType") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

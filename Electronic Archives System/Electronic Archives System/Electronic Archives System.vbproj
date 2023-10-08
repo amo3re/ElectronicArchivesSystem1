@@ -104,6 +104,12 @@
     <Compile Include="Forms\FrmAddFolders.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\FrmBuckupDataBase.Designer.vb">
+      <DependentUpon>FrmBuckupDataBase.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmBuckupDataBase.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\FrmCyclePin.Designer.vb">
       <DependentUpon>FrmCyclePin.vb</DependentUpon>
     </Compile>
@@ -114,6 +120,12 @@
       <DependentUpon>FrmDatabase.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\FrmDatabase.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmDatabase1.Designer.vb">
+      <DependentUpon>FrmDatabase1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmDatabase1.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FrmEMail.Designer.vb">
@@ -214,6 +226,9 @@
     <EmbeddedResource Include="Forms\FrmAddFolders.resx">
       <DependentUpon>FrmAddFolders.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmBuckupDataBase.resx">
+      <DependentUpon>FrmBuckupDataBase.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmCyclePin.resx">
       <DependentUpon>FrmCyclePin.vb</DependentUpon>
     </EmbeddedResource>
@@ -222,6 +237,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmDatabase.resx">
       <DependentUpon>FrmDatabase.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmDatabase1.resx">
+      <DependentUpon>FrmDatabase1.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmEMail.resx">
       <DependentUpon>FrmEMail.vb</DependentUpon>

@@ -2461,28 +2461,33 @@ Public Class ProjectClass
     Public Sub FillCombByDataBases(ByVal CombServer As ComboBox, ByVal ComboDBs As ComboBox)
         Try
            
-            If CombServer.Text.Trim <> String.Empty Then
-                ComboDBs.Items.Clear() '
+            If CombServer.Text.Trim <> String.Empty Then ' فحص اذا كان الكمبوبوكس المخزن فيه السرفرات ليس فارغا  
+                ComboDBs.Items.Clear() ' يقوم بتنظيف الكمبوبوكس لتجنب التكرار فيه 
 
-                Dim SqlConnSrt As String = Nothing
+                Dim SqlConnSrt As String = Nothing ' نعرف متغير نص الاتصال 
+
                 If My.Settings.LoginMothed = 0 Then
                     ' Connection Statement by Windows Authentication
+                    ' صفر يعني ان الاتصال محلي عن طريق صلاحيات الويندوز ويكون نص الاتصال كالتالي
                     SqlConnSrt = "Data Source ='" & CombServer.Text.Trim & "';Initial Catalog = master;Integrated Security=True "
                 ElseIf My.Settings.LoginMothed = 1 Then
                     ' Connection Statement by SQL Serve Authentication
+                    ' واحد يعني ان الاتصال محلي عن طريق اسم مستخدم وكلمة مرور ويكون نص الاتصال كالتالي
                     SqlConnSrt = "Data Source ='" & CombServer.Text.Trim & "';Initial Catalog = master;user ID ='" & My.Settings.LoginID & "'; Password='" & My.Settings.LogPassword & "' "
                 ElseIf My.Settings.LoginMothed = 2 Then
                     ' Connection Statement by through Network
+                    ' اثنين يعني ان الاتصال شبكي على معمارية كلاينت وسيرفر ويكون نص الاتصال كالتالي
                     SqlConnSrt = "Data Source ='" & My.Settings.ServerIP & "','" & My.Settings.LoginPort & "' ;Network Library = DBMSSOCN; Initial Catalog = master;user ID ='" & My.Settings.LoginID & "'; Password='" & My.Settings.LogPassword & "' "
                 End If
 
-                Dim cn As New SqlConnection(SqlConnSrt) '
-                Dim da As New SqlDataAdapter("select name from sys.databases ", cn) '
+                Dim cn As New SqlConnection(SqlConnSrt) ' تعريف متغير للاتصال وتمرير له جملة الاتصال 
+                ' يوجد فيو في الماستر داتا بيز تخزن فيه جميع اسماء قواعد البيانات  يتم جلبه عن طريق الاستعلام التالي 
+                Dim da As New SqlDataAdapter("select name from sys.databases ", cn) ' نمرر الاستعلام الي يقوم باستدعاء اسماء القواعد و متغير الاتصال
                 Dim dt As New DataTable
-                da.Fill(dt) '
+                da.Fill(dt) ' نقوم بتعبئة الجدول باسماء قواعد البيانات الراجعة من الاستعلام 
 
-                For i As Short = 0 To dt.Rows.Count - 1 ' 
-                    ComboDBs.Items.Add(dt.Rows(i).Item("name").ToString()) '
+                For i As Short = 0 To dt.Rows.Count - 1 ' نقوم بعمل لوب تبدا من الصفر وتنتهي بعدد القواعد
+                    ComboDBs.Items.Add(dt.Rows(i).Item("name").ToString()) ' لكي نقوم باضافتها للكمبوبوكس على حده 
                 Next
 
             End If
@@ -2657,5 +2662,222 @@ Public Class ProjectClass
     End Sub
 
 #End Region
+
+
+
+
+#Region " Backup And Restore "
+
+    ' Load Backup Settings داله تحميل اعدادات النسخ الاحتياطي التلقائي
+    Public Sub LoadBackupSettings(ByVal xx As FrmBuckupDataBase)
+         xx.CombBackupType.SelectedIndex = My.Settings.BackupType ' اجعل الاندكس الخاص بنوع النسخ الاحتياطي يساوي الذي موجود في الاعداد الخاصة بالنظام  
+        xx.txtMainBackupPath.Text = My.Settings.BackupPath ' اجعل المسار الخاص بمكان النسخ الاحتياطي  يساوي الذي موجود في الاعداد الخاصة بالنظام  
+        xx.NumOfHours.Value = My.Settings.BackTimerInterval / 3600000 ' اجعل قيمة الاداة الرقمية الخاصة بفترة ساعات النسخ التلقائي  يساوي الذي موجود في الاعداد الخاصة بالنظام قسمة 3.600.000 او 3600*1000 لكي يقوم باعطاء الوقت بالساعات لان المتغير تسجل فيه القيمة بالثواني بحيث ان الثانية الواحدة تساوي 1000 ملي سكند   
+        ' وعند ضرب 1000 ملي سنكد في 60 ثانية ينتج 60.000 ملي سكند نقوم بضربها في 60 دقيقة ينتج 3.600.000 اي ساعة فهنا تتم العملية عكسية كونها قسمة لكي يتم العرض في الاداة
+
+
+        If My.Settings.AutoBackup = 0 Then ' اذا كان نوع النسخ الاحتياطي يساوي 0 
+            xx.rbStop.Checked = True ' يتم تفعيل الخيار الخاص ايقاف النسخ التلقائي
+        ElseIf My.Settings.AutoBackup = 1 Then ' اذا كان نوع النسخ الاحتياطي يساوي 1 
+            xx.rbAtClose.Checked = True ' يتم تفعيل الخيار الخاص بالنسخ الاحتياطي عند ايقاف البرنامج 
+        ElseIf My.Settings.AutoBackup = 2 Then ' اذا كان نوع النسخ الاحتياطي يساوي 2 
+            xx.rbPerHours.Checked = True ' يتم تفعيل الخيار الخاص بالنسخ الاحتياطي عبر فترة زمنية معينة
+        End If
+
+        xx.CombBackupDB.Text = My.Settings.DataBaseName ' يقوم باسناد اسم قاعدة البيانات الموجودة في متغيرات النظام الى الكمبوبوكس الخاص بانشاء النسخ الاحتياطية للقاعدة
+        xx.CombRestoreDB.Text = My.Settings.DataBaseName ' يقوم باسناد اسم قاعدة البيانات الموجودة في متغيرات النظام الى الكمبوبوكس الخاص بإستعادة القاعدة النسخ الاحتياطية
+
+
+    End Sub
+
+    ' Activate Backup Timer اجراء تفعيل المؤقت الخاص بالنسخ الاحتياطي التلقائي 
+    Public Sub ActivateBackupTimer(ByVal xx As FrmBuckupDataBase)
+
+        Dim x As Int64 = Val(xx.NumOfHours.Value) * 1000 * 3600 ' تعريف متغير صحيح طويل جدا يقوم بالاحتفاظ بقيمة عدد ساعات عمل النسخ الاحتياطية التلقائية ويتم اسناد القيمة له عن طريق ضربها في 3.600.000 او 3600*1000 لكي يقوم باعطاء الوقت بالساعات لان المتغير تسجل فيه القيمة بالثواني بحيث ان الثانية الواحدة تساوي 1000 ملي سكند  
+        ' وعند ضرب 1000 ملي سنكد في 60 ثانية ينتج 60.000 ملي سكند نقوم بضربها في 60 دقيقة ينتج 3.600.000 اي ساعة 
+
+        My.Settings.BackTimerInterval = x ' نسندالقيمة للمتغير الموجود في اعدادات النظام
+        FrmMainPage.BackupTimer.Enabled = True ' نقوم بتفعيل المؤقت الموجود في الواجهة الرئيسية 
+        FrmMainPage.BackupTimer.Interval = x ' نعطي الانترفل الخاص بالمؤقت قيمة الانترفل المسندة 
+
+    End Sub
+
+    ' Save Backup Settings اجراء حفظ اعدادات النسخ الاحتياطي 
+    Public Sub SaveBackupSettings(ByVal xx As FrmBuckupDataBase)
+        Try
+            If xx.txtMainBackupPath.Text.Trim = String.Empty Then ' في حالة كان مربح النص الخاص  بمسار حفظ النسخ الاحتياطي فارغا 
+                MessageBox.Show("من فضلك اختر مسار لحفظ النسخ الإحتياطي", "رسالة تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Return ' نقوم بالخروج من الاجراء 
+            End If
+            My.Settings.BackupType = xx.CombBackupType.SelectedIndex ' نسند للمتغير الموجود بالنظام نوع النسخ الاحتياطي 
+            My.Settings.BackupPath = xx.txtMainBackupPath.Text  ' Save Path  ' نسند للمتغير الموجود في النظام مسار النسخ الاحتياطي 
+
+
+            ' Save AutoBackup Options  حفظ خيارات النسخ التلقائي 
+            If xx.rbStop.Checked = True Then ' في حالة كان الخيار الخاص بالنسخ التلقائي مفعل 
+                My.Settings.AutoBackup = 0 ' نسند لمتغير الحفظ التلقائي القيمة 0
+            ElseIf xx.rbAtClose.Checked = True Then ' وفي حالة كان خيار النسخ التلقائي عند الاغلاق مفعل 
+                My.Settings.AutoBackup = 1 ' نسند لمتغير الحفظ التلقائي القيمة 1
+            ElseIf xx.rbPerHours.Checked = True Then ' وفي حالة كان خيار النسخ التلقائي عند كل عدد ساعات معينة مفعلا
+                My.Settings.AutoBackup = 2 ' نسند لمتغير الحفظ التلقائي القيمة 2
+                ActivateBackupTimer(xx) ' ثم نستدعي اجراء تفعيل المؤقت الزمني الخاص بالنسخ الاحتياطي
+            End If
+
+            My.Settings.Save() ' ثم نقوم بحفظ الاعدادات
+            ConfirmMessage(xx.lblConfirmMsg, xx.PicMessage, xx.Timer1, " تم حفظ إعدادات النسخ الاحتياطي بنجاح ") ' ثم نظهر رسالة الحفظ بنجاح
+
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Erorr Message", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+
+    End Sub
+
+    ' داله ترجع اسماء قواعد البيانات كجدول
+    Public Function ReturnNameOFDataBasesAsDataTable() As DataTable
+        Dim dt As New DataTable ' تعريف الجدول
+        dt.Columns.Add("name") 'اضافة عمود للجدول باسم name
+
+        Try
+            Dim ServerName, ServerIPAddress As String ' تعريف للمتغيرين اسم السرفر و عنوان ايبي السيرفر   
+            ServerName = My.Settings.ServerName ' نسند لهم القيم من المتغيرات المحفوظة بالنظام
+            ServerIPAddress = My.Settings.ServerIP ' نسند لهم القيم من المتغيرات المحفوظة بالنظام
+
+            ' فحص اذا كان اسم السرفر ليس فارغا او ايبي السرفر ليس فارغا ايضا يتم عمل التالي
+            If String.IsNullOrEmpty(ServerName) = False Or String.IsNullOrEmpty(ServerIPAddress) = False Then
+
+
+                Dim SqlConnSrt As String = Nothing ' نعرف متغير الاتصال
+                If My.Settings.LoginMothed = 0 Then
+                    ' Connection Statement by Windows Authentication 
+                    ' صفر يعني ان الاتصال محلي عن طريق صلاحيات الويندوز ويكون نص الاتصال كالتالي
+                    SqlConnSrt = "Data Source ='" & ServerName & "';Initial Catalog = master;Integrated Security=True "
+                ElseIf My.Settings.LoginMothed = 1 Then
+                    ' Connection Statement by SQL Serve Authentication
+                    ' واحد يعني ان الاتصال محلي عن طريق اسم مستخدم وكلمة مرور ويكون نص الاتصال كالتالي
+                    SqlConnSrt = "Data Source ='" & ServerName & "';Initial Catalog = master;user ID ='" & My.Settings.LoginID & "'; Password='" & My.Settings.LogPassword & "' "
+                ElseIf My.Settings.LoginMothed = 2 Then
+                    ' Connection Statement by through Network
+                    ' اثنين يعني ان الاتصال شبكي على معمارية كلاينت وسيرفر ويكون نص الاتصال كالتالي
+                    SqlConnSrt = "Data Source ='" & My.Settings.ServerIP & "','" & My.Settings.LoginPort & "' ;Network Library = DBMSSOCN; Initial Catalog = master;user ID ='" & My.Settings.LoginID & "'; Password='" & My.Settings.LogPassword & "' "
+                End If
+
+                Dim cn As New SqlConnection(SqlConnSrt) ' تعريف متغير للاتصال وتمرير له جملة الاتصال 
+                ' يوجد فيو في الماستر داتا بيز تخزن فيه جميع اسماء قواعد البيانات  يتم جلبه عن طريق الاستعلام التالي 
+                Dim da As New SqlDataAdapter("select name from sys.databases ", cn) ' نمرر الاستعلام الي يقوم باستدعاء اسماء القواعد و متغير الاتصال
+                da.Fill(dt) ' نقوم بتعبئة الجدول باسماء قواعد البيانات الراجعة من الاستعلام 
+
+            End If
+
+        Catch ex As Exception
+            ' في حاله وجود خطأ ستظهر رسالة الخطأ
+            MessageBox.Show(ex.Message, "Erorr", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        End Try
+
+        Return dt 'ارجاع للجدول الموجود فيه اسماء القواعد 
+
+    End Function
+
+
+    '  Backup DataBase
+    ' Backup DataBase داله عمل النسخ الاحتياطي 
+    Public Function BackupDataBase(ByVal con As SqlConnection, ByVal DatabaseName As String, ByVal DestinationFolderPath As String, ByVal BackupOption As String, ByVal Backuptype As String) As Boolean
+        Try
+            Dim SqlCmd As New SqlCommand ' تعريف كائن من سيكول كوموند 
+            SqlCmd = con.CreateCommand ' جعله يساوي كائن الاتصال وينشى جملة جديدة 
+            Dim CommandStr As String = Nothing ' ننشى متغير نصي ليحتوي نص النسخ
+
+           
+            If Backuptype = 0 Then  ' في حاله كان نوع النسخ يساوي 0 اي ان النسخ سيكون اي انه نسخ كامل  فسيكون نص االاتصال كما هو موضح في ناتج الشرط
+                CommandStr = "backup database " & DatabaseName &
+                                        " to disk = N'" & DestinationFolderPath & "\" & DatabaseName & "_FULL_" & Now.ToString("yyyy-MM-dd hh-mm-ss") & " .bak' WITH " & BackupOption
+                ' سيكون هكذا كما في السيكول سيرفر ولكن مع اضافة التاريخ والوقت لاسم النسخة 
+                '       BACKUP DATABASE [EArchive2022] 
+                '  TO  DISK = N'D:\Archived Files\Backup\EArchive2022_FULL_Date+time.bak'
+                '    WITH NOFORMAT, NOINIT, SKIP
+            ElseIf Backuptype = 1 Then ' في حاله كان نوع النسخ يساوي 1 اي ان النسخ سيكون نسخ تفاضلي  فسيكون نص االاتصال كما هو موضح في ناتج الشرط
+                CommandStr = "backup database " & DatabaseName &
+                                        " to disk = N'" & DestinationFolderPath & "\" & DatabaseName & "_DIFF_" & Now.ToString("yyyy-MM-dd hh-mm-ss") & " .bak' WITH DIFFERENTIAL , " & BackupOption & ""
+                ' سيكون هكذا كما في السيكول سيرفر ولكن مع اضافة التاريخ والوقت لاسم النسخة 
+                '       BACKUP DATABASE [EArchive2022] 
+                '  TTO  DISK = N'D:\Archived Files\Backup\EArchive2022_DIFF_Date+time' 
+                '     WITH  DIFFERENTIAL , NOFORMAT, NOINIT 
+            ElseIf Backuptype = 2 Then ' في حاله كان نوع النسخ يساوي 2 اي ان النسخ سيكون  نسخ لملف اللوج اي للعمليات الترانساكشن  فسيكون نص االاتصال كما هو موضح في ناتج الشرط
+                CommandStr = "backup LOG " & DatabaseName &
+                                        " to disk = N'" & DestinationFolderPath & "\" & DatabaseName & "_Trans_Log_" & Now.ToString("yyyy-MM-dd hh-mm-ss") & " .trn' WITH " & BackupOption
+                ' سيكون هكذا كما في السيكول سيرفر ولكن مع اضافة التاريخ والوقت لاسم النسخة 
+                ' BACKUP LOG [EArchive2022]
+                '  TO  DISK = N'D:\Archived Files\Backup\EArchive2022_Trans_Log_Date+time.trn' 
+                ' WITH NOFORMAT, NOINIT
+            End If
+
+
+            SqlCmd.CommandText = CommandStr ' نسند النص الخاص بالنسخ لخاصية جمله النص في كائن جملة السيكول
+            con.Open() ' نفتح الاتصال
+            SqlCmd.ExecuteNonQuery() ' ننفذ الامر
+            con.Close() ' نغلق الاتصال 
+
+            Return True ' نرجع القيمه ترو اذا تم الامر بنجاح
+
+        Catch ex As Exception
+            ' في حاله وجود خطأ ستظهر رسالة الخطأ
+            MessageBox.Show(ex.Message, "Erorr", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False ' ونرجع فولس اذا كان هناك اي خطأ حدث
+        End Try
+
+    End Function
+
+    '  Enable Backup At Closeing System  اجراء عمل نسخه احتياطية عند اغلاق النظام 
+    Public Sub EnableBackupAtCloseingSystem()
+        Try
+
+            If My.Settings.AutoBackup = 1 AndAlso String.IsNullOrEmpty(My.Settings.BackupPath) = False Then ' نقوم بفحص اذا كان متغير النسخ التلقائي الموجود في متغيرات النظام يساوي 1 اي ان النسخ سيكون عند اغلاق البرنامج وايضا نفحص ما اذا كان متغير المسار الوجود في متغيرات النظام ليس فارغا 
+                If My.Computer.FileSystem.FileExists(My.Settings.BackupPath) = False Then System.IO.Directory.CreateDirectory(My.Settings.BackupPath) ' فحص في حاله اذا لم يكن المجلد المحدد كمسار غير موجود يقوم بإنشاءه
+                Dim BackupOption As String = Nothing ' نعرف متغير خيار النسخ
+                Dim IsBackupSucceed As Boolean = False ' نعرف متغير هل النسخ صحيح ويكون من نوع بولين اما صفر او واحد 
+                BackupOption = "NOFORMAT, INIT, SKIP" '   جعل قيمة خيار النسخ هكذا
+                IsBackupSucceed = BackupDataBase(Con(), My.Settings.DataBaseName, My.Settings.BackupPath, BackupOption, My.Settings.BackupType) ' نسند للمتغير داله النسخ الاحتياطي لقاعدة البيانات ونرسل لها الاتصال واسم القاعدة ومسار النسخ وخيار النسخ ونوع النسخ الموجودين في متغيرات النظام  
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Erorr Message", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+
+    End Sub
+
+    '  Enable Backup Per Hours  اجراء عمل نسخه احتياطية  حسب خيار عدد الساعات
+    Public Sub EnableBackupPerHours(ByVal T As Timer)
+        Try
+
+            If My.Settings.AutoBackup = 2 AndAlso String.IsNullOrEmpty(My.Settings.BackupPath) = False Then ' نقوم بفحص اذا كان متغير النسخ التلقائي الموجود في متغيرات النظام يساوي 1 اي ان النسخ سيكون حسب الوقت المحدد بالساعات وايضا نفحص ما اذا كان متغير المسار الوجود في متغيرات النظام ليس فارغا 
+                If My.Computer.FileSystem.FileExists(My.Settings.BackupPath) = False Then System.IO.Directory.CreateDirectory(My.Settings.BackupPath) ' فحص في حاله اذا لم يكن المجلد المحدد كمسار غير موجود يقوم بإنشاءه
+                Dim BackupOption As String = Nothing ' نعرف متغير خيار النسخ
+                Dim IsBackupSucceed As Boolean = False ' نعرف متغير هل النسخ صحيح ويكون من نوع بولين اما صفر او واحد 
+                BackupOption = "NOFORMAT, INIT, SKIP" '   جعل قيمة خيار النسخ هكذا
+                IsBackupSucceed = BackupDataBase(Con(), My.Settings.DataBaseName, My.Settings.BackupPath, BackupOption, My.Settings.BackupType) ' نسند للمتغير داله النسخ الاحتياطي لقاعدة البيانات ونرسل لها الاتصال واسم القاعدة ومسار النسخ وخيار النسخ ونوع النسخ الموجودين في متغيرات النظام  
+            Else
+                T.Stop() ' لو لم يكن هذا خيار الحفظ التلقائي يساوي 2 قم بإقاف المؤقت 
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Erorr Message", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+
+    End Sub
+
+
+    ' Restore DataBase
+
+
+
+#End Region
+
+
+
+
 
 End Class

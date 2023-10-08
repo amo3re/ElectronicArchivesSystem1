@@ -24,9 +24,9 @@ Partial Class FrmMainPage
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMainPage))
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.btnAddNewFolder = New System.Windows.Forms.ToolStripButton()
         Me.btnAddNewFile = New System.Windows.Forms.ToolStripButton()
@@ -35,6 +35,7 @@ Partial Class FrmMainPage
         Me.btnCollaps = New System.Windows.Forms.ToolStripButton()
         Me.btnSendMail = New System.Windows.Forms.ToolStripButton()
         Me.btnDeletedPin = New System.Windows.Forms.ToolStripButton()
+        Me.btnFolderDeletedPin = New System.Windows.Forms.ToolStripButton()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.txtsearch = New System.Windows.Forms.TextBox()
         Me.Panel6 = New System.Windows.Forms.Panel()
@@ -98,14 +99,14 @@ Partial Class FrmMainPage
         Me.ToolStripSeparator16 = New System.Windows.Forms.ToolStripSeparator()
         Me.ToolStripLabel2 = New System.Windows.Forms.ToolStripLabel()
         Me.PDFPanel = New System.Windows.Forms.Panel()
-        Me.AxAcroPDF1 = New AxAcroPDFLib.AxAcroPDF()
         Me.txtPanel = New System.Windows.Forms.Panel()
         Me.txtReader = New System.Windows.Forms.RichTextBox()
         Me.TailPanel = New System.Windows.Forms.Panel()
         Me.TopPanel = New System.Windows.Forms.Panel()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.btnFolderDeletedPin = New System.Windows.Forms.ToolStripButton()
-        Me.Label3 = New System.Windows.Forms.Label()
+        Me.BackupTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.AxAcroPDF1 = New AxAcroPDFLib.AxAcroPDF()
         Me.ToolStrip1.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.Panel6.SuspendLayout()
@@ -132,8 +133,8 @@ Partial Class FrmMainPage
         Me.Panel7.SuspendLayout()
         Me.ToolStrip4.SuspendLayout()
         Me.PDFPanel.SuspendLayout()
-        CType(Me.AxAcroPDF1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.txtPanel.SuspendLayout()
+        CType(Me.AxAcroPDF1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolStrip1
@@ -218,6 +219,17 @@ Partial Class FrmMainPage
         Me.btnDeletedPin.Size = New System.Drawing.Size(35, 35)
         Me.btnDeletedPin.Text = "سلة المحذوفات"
         Me.btnDeletedPin.ToolTipText = "سلة المحذوفات الخاصة بالملفات"
+        '
+        'btnFolderDeletedPin
+        '
+        Me.btnFolderDeletedPin.AutoSize = False
+        Me.btnFolderDeletedPin.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnFolderDeletedPin.Image = Global.Electronic_Archives_System.My.Resources.Resources.Trash_16x16
+        Me.btnFolderDeletedPin.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnFolderDeletedPin.Name = "btnFolderDeletedPin"
+        Me.btnFolderDeletedPin.Size = New System.Drawing.Size(35, 35)
+        Me.btnFolderDeletedPin.Text = "سلة المحذوفات"
+        Me.btnFolderDeletedPin.ToolTipText = "سلة المحذوفات الخاصة بالمجلدات"
         '
         'Panel5
         '
@@ -481,34 +493,34 @@ Partial Class FrmMainPage
         Me.dgv_Files.AllowUserToAddRows = False
         Me.dgv_Files.AllowUserToDeleteRows = False
         Me.dgv_Files.AllowUserToResizeRows = False
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.LightBlue
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black
-        Me.dgv_Files.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle7.BackColor = System.Drawing.Color.LightBlue
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black
+        Me.dgv_Files.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
         Me.dgv_Files.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgv_Files.BackgroundColor = System.Drawing.Color.White
         Me.dgv_Files.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Sakkal Majalla", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgv_Files.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Sakkal Majalla", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgv_Files.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle8
         Me.dgv_Files.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgv_Files.ColumnHeadersVisible = False
         Me.dgv_Files.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.xCode, Me.xName})
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgv_Files.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgv_Files.DefaultCellStyle = DataGridViewCellStyle9
         Me.dgv_Files.EnableHeadersVisualStyles = False
         Me.dgv_Files.Location = New System.Drawing.Point(18, 73)
         Me.dgv_Files.MultiSelect = False
@@ -538,7 +550,6 @@ Partial Class FrmMainPage
         'P_Side
         '
         Me.P_Side.BackColor = System.Drawing.Color.SteelBlue
-        Me.P_Side.Controls.Add(Me.Label3)
         Me.P_Side.Controls.Add(Me.Label2)
         Me.P_Side.Controls.Add(Me.btnAddNewUser)
         Me.P_Side.Controls.Add(Me.btnSettings)
@@ -563,7 +574,6 @@ Partial Class FrmMainPage
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(120, 27)
         Me.Label2.TabIndex = 4
-        Me.Label2.Text = "المستخدم الحالي" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'btnAddNewUser
@@ -947,16 +957,6 @@ Partial Class FrmMainPage
         Me.PDFPanel.Size = New System.Drawing.Size(630, 640)
         Me.PDFPanel.TabIndex = 23
         '
-        'AxAcroPDF1
-        '
-        Me.AxAcroPDF1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.AxAcroPDF1.Enabled = True
-        Me.AxAcroPDF1.Location = New System.Drawing.Point(0, 0)
-        Me.AxAcroPDF1.Name = "AxAcroPDF1"
-        Me.AxAcroPDF1.OcxState = CType(resources.GetObject("AxAcroPDF1.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.AxAcroPDF1.Size = New System.Drawing.Size(630, 640)
-        Me.AxAcroPDF1.TabIndex = 0
-        '
         'txtPanel
         '
         Me.txtPanel.Controls.Add(Me.txtReader)
@@ -998,27 +998,19 @@ Partial Class FrmMainPage
         Me.TopPanel.Size = New System.Drawing.Size(539, 46)
         Me.TopPanel.TabIndex = 0
         '
-        'btnFolderDeletedPin
+        'BackupTimer
         '
-        Me.btnFolderDeletedPin.AutoSize = False
-        Me.btnFolderDeletedPin.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnFolderDeletedPin.Image = Global.Electronic_Archives_System.My.Resources.Resources.Trash_16x16
-        Me.btnFolderDeletedPin.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnFolderDeletedPin.Name = "btnFolderDeletedPin"
-        Me.btnFolderDeletedPin.Size = New System.Drawing.Size(35, 35)
-        Me.btnFolderDeletedPin.Text = "سلة المحذوفات"
-        Me.btnFolderDeletedPin.ToolTipText = "سلة المحذوفات الخاصة بالمجلدات"
+        Me.BackupTimer.Interval = 1000
         '
-        'Label3
+        'AxAcroPDF1
         '
-        Me.Label3.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Label3.Font = New System.Drawing.Font("Sakkal Majalla", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.ForeColor = System.Drawing.Color.White
-        Me.Label3.Location = New System.Drawing.Point(0, 198)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(120, 27)
-        Me.Label3.TabIndex = 5
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.AxAcroPDF1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.AxAcroPDF1.Enabled = True
+        Me.AxAcroPDF1.Location = New System.Drawing.Point(0, 0)
+        Me.AxAcroPDF1.Name = "AxAcroPDF1"
+        Me.AxAcroPDF1.OcxState = CType(resources.GetObject("AxAcroPDF1.OcxState"), System.Windows.Forms.AxHost.State)
+        Me.AxAcroPDF1.Size = New System.Drawing.Size(630, 640)
+        Me.AxAcroPDF1.TabIndex = 0
         '
         'FrmMainPage
         '
@@ -1068,8 +1060,8 @@ Partial Class FrmMainPage
         Me.ToolStrip4.ResumeLayout(False)
         Me.ToolStrip4.PerformLayout()
         Me.PDFPanel.ResumeLayout(False)
-        CType(Me.AxAcroPDF1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.txtPanel.ResumeLayout(False)
+        CType(Me.AxAcroPDF1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1152,5 +1144,7 @@ Partial Class FrmMainPage
     Friend WithEvents WebBrowser1 As System.Windows.Forms.WebBrowser
     Friend WithEvents btnFolderDeletedPin As System.Windows.Forms.ToolStripButton
     Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents BackupTimer As System.Windows.Forms.Timer
+    Friend WithEvents Timer1 As System.Windows.Forms.Timer
 
 End Class

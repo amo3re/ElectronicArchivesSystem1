@@ -25,17 +25,40 @@ Public Class FrmMainPage
 
     Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
 
-        ' تم استخدام الثريد لكي يتم حل مشكلة ظهور الاخطاء عند حذف الملفات من المجلد المؤقت فالثريد الاول ينظف المتصفح من اي ملف مفتوح وهو سبب ظهور الخطأ  
-        ' والثريد الثاني يقوم بعملية الحذف للملفات الموجودة في المجلد المؤقت  
-        Dim Thr1 As Thread = New Thread(AddressOf ClearWebBrowser) ' عمل انشاء ثريد ونمرر له الداله التي نريد تنفيذها داخل هذا الثريد
-        Thr1.Start() ' تشغيل الثريد  رقم 1 
-        Dim Thr2 As Thread = New Thread(AddressOf DeleteTempFiles) ' عمل انشاء ثريد ونمرر له الداله التي نريد تنفيذها داخل هذا الثريد
-        Thr2.Start() ' تشغيل الثريد رقم 2 
-        ' الى هنا يتم تنفيذ الاثنين الثريد في نفس الوقت ولكن سوف نحصل على نفس المشكلة كون ان الملف الى الان مفتوح والاثنين يشتغلو بنفس الوقت 
-        ' ولحل هذه المشكلة نستخدم السطر هذا ووظيفتها  هي عمل بلوك او ايقاف لجميع الثريد الاخرى الموجودة لغايه ان ينتهي الثريد تبعها او الذي استدعاها ومن ثم عند الانتهاء يشتغل بقيه الثريد 
-        Thr1.Join() ' تعمل على تجميد بقيه الثريد الى حين انتهاء تنفيذ الثريد الذي استدعاها 
+        '' تم استخدام الثريد لكي يتم حل مشكلة ظهور الاخطاء عند حذف الملفات من المجلد المؤقت فالثريد الاول ينظف المتصفح من اي ملف مفتوح وهو سبب ظهور الخطأ  
+        '' والثريد الثاني يقوم بعملية الحذف للملفات الموجودة في المجلد المؤقت  
+        'Dim Thr1 As Thread = New Thread(AddressOf ClearWebBrowser) ' عمل انشاء ثريد ونمرر له الداله التي نريد تنفيذها داخل هذا الثريد
+        'Thr1.Start() ' تشغيل الثريد  رقم 1 
+        'Dim Thr2 As Thread = New Thread(AddressOf DeleteTempFiles) ' عمل انشاء ثريد ونمرر له الداله التي نريد تنفيذها داخل هذا الثريد
+        'Thr2.Start() ' تشغيل الثريد رقم 2 
+        '' الى هنا يتم تنفيذ الاثنين الثريد في نفس الوقت ولكن سوف نحصل على نفس المشكلة كون ان الملف الى الان مفتوح والاثنين يشتغلو بنفس الوقت 
+        '' ولحل هذه المشكلة نستخدم السطر هذا ووظيفتها  هي عمل بلوك او ايقاف لجميع الثريد الاخرى الموجودة لغايه ان ينتهي الثريد تبعها او الذي استدعاها ومن ثم عند الانتهاء يشتغل بقيه الثريد 
+        'Thr1.Join() ' تعمل على تجميد بقيه الثريد الى حين انتهاء تنفيذ الثريد الذي استدعاها 
 
-        Application.Exit()
+        'Application.Exit()
+
+
+        If MessageBox.Show("هل تود إغلاق البرنامج ؟", "رسالة تنبيه", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) = DialogResult.OK Then
+            ' استدعاء اجراء عمل النسخ الاحتياطي عند اغلاق النظام
+            cls.EnableBackupAtCloseingSystem()
+
+            ' تم استخدام الثريد لكي يتم حل مشكلة ظهور الاخطاء عند حذف الملفات من المجلد المؤقت فالثريد الاول ينظف المتصفح من اي ملف مفتوح وهو سبب ظهور الخطأ  
+            ' والثريد الثاني يقوم بعملية الحذف للملفات الموجودة في المجلد المؤقت  
+            Control.CheckForIllegalCrossThreadCalls = False
+            Dim Thr1 As Thread = New Thread(AddressOf ClearWebBrowser) ' عمل انشاء ثريد ونمرر له الداله التي نريد تنفيذها داخل هذا الثريد
+            Thr1.Start() ' تشغيل الثريد  رقم 1 
+            Dim Thr2 As Thread = New Thread(AddressOf DeleteTempFiles) ' عمل انشاء ثريد ونمرر له الداله التي نريد تنفيذها داخل هذا الثريد
+            Thr2.Start() ' تشغيل الثريد رقم 2 
+            ' الى هنا يتم تنفيذ الاثنين الثريد في نفس الوقت ولكن سوف نحصل على نفس المشكلة كون ان الملف الى الان مفتوح والاثنين يشتغلو بنفس الوقت 
+            ' ولحل هذه المشكلة نستخدم السطر هذا ووظيفتها  هي عمل بلوك او ايقاف لجميع الثريد الاخرى الموجودة لغايه ان ينتهي الثريد تبعها او الذي استدعاها ومن ثم عند الانتهاء يشتغل بقيه الثريد 
+            Thr1.Join() ' تعمل على تجميد بقيه الثريد الى حين انتهاء تنفيذ الثريد الذي استدعاها 
+
+            Application.Exit()
+        End If
+
+        
+
+
     End Sub
 
     Private Sub btnAddNewUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNewUser.Click
@@ -43,13 +66,16 @@ Public Class FrmMainPage
     End Sub
 
     Private Sub btnSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSettings.Click
-        'FrmServerCon.ShowDialog()
+        'FrmServerCon.ShowDialog() 
         FrmServerConnection1.ShowDialog()
         'FrmServerConnection.ShowDialog()
     End Sub
 
     Private Sub btnBackup_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBackup.Click
-        FrmDatabase.ShowDialog()
+        'FrmDatabase.ShowDialog()
+        'FrmDatabase1.ShowDialog()
+        FrmBuckupDataBase.ShowDialog()
+
     End Sub
 
     Private Sub btnAddNewFolder_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNewFolder.Click
@@ -211,9 +237,14 @@ Public Class FrmMainPage
     End Sub
 
     Private Sub FrmMainPage_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        cls.LoadArchiveTree(Me)
-        cls.CreateTempFolder()
-        Label3.Text = LogUserName ' by me 
+        ' we have to check Server Name before Load
+        Me.Label2.Text = "المستخدم الحالي" & LogUserName '  لعرض المستخدم الحالي في الشاشة الرئيسية 
+        cls.LoadArchiveTree(Me)  ' استدعاء اجراء عمل تحميل لشجرة الارشفة 
+        cls.CreateTempFolder()  ' استدعاء اجراء انشاء ملف التيمب لفتح الملفات فيه
+        If My.Settings.AutoBackup = 2 Then ' فحص اذا كان المتغير الخاص بالنسخ التلقائي يساوي 2 اي ان النسخ سيكون عبر الوقت المحدد بالساعات 
+            Me.BackupTimer.Interval = My.Settings.BackTimerInterval ' لذلك سيقوم باسنداد قيمة الانترفل المخزنة ضمن متغير النظام الى الانترفل الخاص بالمؤقت الموجود في الاشاشة الرئيسية 
+            Me.BackupTimer.Enabled = True ' ويقوم بتفعيل المؤقت 
+        End If
 
 
     End Sub
@@ -366,17 +397,18 @@ Public Class FrmMainPage
 
 
     Private Sub FrmMainPage_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        ' تم استخدام الثريد لكي يتم حل مشكلة ظهور الاخطاء عند حذف الملفات من المجلد المؤقت فالثريد الاول ينظف المتصفح من اي ملف مفتوح وهو سبب ظهور الخطأ  
-        ' والثريد الثاني يقوم بعملية الحذف للملفات الموجودة في المجلد المؤقت  
-        Dim Thr1 As Thread = New Thread(AddressOf ClearWebBrowser) ' عمل انشاء ثريد ونمرر له الداله التي نريد تنفيذها داخل هذا الثريد
-        Thr1.Start() ' تشغيل الثريد  رقم 1 
-        Dim Thr2 As Thread = New Thread(AddressOf DeleteTempFiles) ' عمل انشاء ثريد ونمرر له الداله التي نريد تنفيذها داخل هذا الثريد
-        Thr2.Start() ' تشغيل الثريد رقم 2 
-        ' الى هنا يتم تنفيذ الاثنين الثريد في نفس الوقت ولكن سوف نحصل على نفس المشكلة كون ان الملف الى الان مفتوح والاثنين يشتغلو بنفس الوقت 
-        ' ولحل هذه المشكلة نستخدم السطر هذا ووظيفتها  هي عمل بلوك او ايقاف لجميع الثريد الاخرى الموجودة لغايه ان ينتهي الثريد تبعها او الذي استدعاها ومن ثم عند الانتهاء يشتغل بقيه الثريد 
-        Thr1.Join() ' تعمل على تجميد بقيه الثريد الى حين انتهاء تنفيذ الثريد الذي استدعاها 
+        '' تم استخدام الثريد لكي يتم حل مشكلة ظهور الاخطاء عند حذف الملفات من المجلد المؤقت فالثريد الاول ينظف المتصفح من اي ملف مفتوح وهو سبب ظهور الخطأ  
+        '' والثريد الثاني يقوم بعملية الحذف للملفات الموجودة في المجلد المؤقت  
+        'Control.CheckForIllegalCrossThreadCalls = False
+        'Dim Thr1 As Thread = New Thread(AddressOf ClearWebBrowser) ' عمل انشاء ثريد ونمرر له الداله التي نريد تنفيذها داخل هذا الثريد
+        'Thr1.Start() ' تشغيل الثريد  رقم 1 
+        'Dim Thr2 As Thread = New Thread(AddressOf DeleteTempFiles) ' عمل انشاء ثريد ونمرر له الداله التي نريد تنفيذها داخل هذا الثريد
+        'Thr2.Start() ' تشغيل الثريد رقم 2 
+        '' الى هنا يتم تنفيذ الاثنين الثريد في نفس الوقت ولكن سوف نحصل على نفس المشكلة كون ان الملف الى الان مفتوح والاثنين يشتغلو بنفس الوقت 
+        '' ولحل هذه المشكلة نستخدم السطر هذا ووظيفتها  هي عمل بلوك او ايقاف لجميع الثريد الاخرى الموجودة لغايه ان ينتهي الثريد تبعها او الذي استدعاها ومن ثم عند الانتهاء يشتغل بقيه الثريد 
+        'Thr1.Join() ' تعمل على تجميد بقيه الثريد الى حين انتهاء تنفيذ الثريد الذي استدعاها 
 
-        Application.Exit()
+        'Application.Exit()
     End Sub
 
     ' حدث يتنفذ اثناء ظهور اة فتح المينيو ستريب
@@ -453,5 +485,27 @@ Public Class FrmMainPage
         Catch ex As Exception
             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
+    End Sub
+
+    Private Sub FrmMainPage_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        ' استدعاء اجراء عمل النسخ الاحتياطي عند اغلاق النظام
+        cls.EnableBackupAtCloseingSystem()
+
+        ' تم استخدام الثريد لكي يتم حل مشكلة ظهور الاخطاء عند حذف الملفات من المجلد المؤقت فالثريد الاول ينظف المتصفح من اي ملف مفتوح وهو سبب ظهور الخطأ  
+        ' والثريد الثاني يقوم بعملية الحذف للملفات الموجودة في المجلد المؤقت  
+        Control.CheckForIllegalCrossThreadCalls = False
+        Dim Thr1 As Thread = New Thread(AddressOf ClearWebBrowser) ' عمل انشاء ثريد ونمرر له الداله التي نريد تنفيذها داخل هذا الثريد
+        Thr1.Start() ' تشغيل الثريد  رقم 1 
+        Dim Thr2 As Thread = New Thread(AddressOf DeleteTempFiles) ' عمل انشاء ثريد ونمرر له الداله التي نريد تنفيذها داخل هذا الثريد
+        Thr2.Start() ' تشغيل الثريد رقم 2 
+        ' الى هنا يتم تنفيذ الاثنين الثريد في نفس الوقت ولكن سوف نحصل على نفس المشكلة كون ان الملف الى الان مفتوح والاثنين يشتغلو بنفس الوقت 
+        ' ولحل هذه المشكلة نستخدم السطر هذا ووظيفتها  هي عمل بلوك او ايقاف لجميع الثريد الاخرى الموجودة لغايه ان ينتهي الثريد تبعها او الذي استدعاها ومن ثم عند الانتهاء يشتغل بقيه الثريد 
+        Thr1.Join() ' تعمل على تجميد بقيه الثريد الى حين انتهاء تنفيذ الثريد الذي استدعاها 
+
+        'Application.Exit()
+    End Sub
+
+    Private Sub BackupTimer_Tick(sender As Object, e As EventArgs) Handles BackupTimer.Tick
+        cls.EnableBackupPerHours(BackupTimer) ' استدعاء اجراء الذي يقوم بتفعيل النسخ الاحتياطي حسب الوقت المعين  
     End Sub
 End Class
