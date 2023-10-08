@@ -56,5 +56,8 @@
     <Setting Name="BackupType" Type="System.Int16" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="FrmConStrPaS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0011</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

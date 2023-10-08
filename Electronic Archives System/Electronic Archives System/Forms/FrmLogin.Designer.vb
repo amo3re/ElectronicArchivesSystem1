@@ -35,9 +35,9 @@ Partial Class FrmLogin
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.txtUserPassword = New System.Windows.Forms.TextBox()
+        Me.txtUserName = New System.Windows.Forms.TextBox()
+        Me.ckConSettings = New System.Windows.Forms.CheckBox()
         Me.BunifuElipse1 = New Bunifu.Framework.UI.BunifuElipse(Me.components)
         Me.btnLoging = New Bunifu.Framework.UI.BunifuThinButton2()
         Me.btnLogout = New Bunifu.Framework.UI.BunifuThinButton2()
@@ -137,8 +137,8 @@ Partial Class FrmLogin
         '
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.Label3)
-        Me.GroupBox1.Controls.Add(Me.TextBox2)
-        Me.GroupBox1.Controls.Add(Me.TextBox1)
+        Me.GroupBox1.Controls.Add(Me.txtUserPassword)
+        Me.GroupBox1.Controls.Add(Me.txtUserName)
         Me.GroupBox1.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(32, 196)
         Me.GroupBox1.Name = "GroupBox1"
@@ -167,33 +167,33 @@ Partial Class FrmLogin
         Me.Label3.TabIndex = 1
         Me.Label3.Text = "اسم المستخدم"
         '
-        'TextBox2
+        'txtUserPassword
         '
-        Me.TextBox2.Font = New System.Drawing.Font("Arial Rounded MT Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox2.Location = New System.Drawing.Point(40, 86)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.TextBox2.Size = New System.Drawing.Size(317, 29)
-        Me.TextBox2.TabIndex = 1
+        Me.txtUserPassword.Font = New System.Drawing.Font("Arial Rounded MT Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtUserPassword.Location = New System.Drawing.Point(40, 86)
+        Me.txtUserPassword.Name = "txtUserPassword"
+        Me.txtUserPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.txtUserPassword.Size = New System.Drawing.Size(317, 29)
+        Me.txtUserPassword.TabIndex = 1
         '
-        'TextBox1
+        'txtUserName
         '
-        Me.TextBox1.Font = New System.Drawing.Font("Arial Rounded MT Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(40, 41)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(317, 29)
-        Me.TextBox1.TabIndex = 0
+        Me.txtUserName.Font = New System.Drawing.Font("Arial Rounded MT Bold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtUserName.Location = New System.Drawing.Point(40, 41)
+        Me.txtUserName.Name = "txtUserName"
+        Me.txtUserName.Size = New System.Drawing.Size(317, 29)
+        Me.txtUserName.TabIndex = 0
         '
-        'CheckBox1
+        'ckConSettings
         '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Font = New System.Drawing.Font("Sakkal Majalla", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBox1.Location = New System.Drawing.Point(35, 415)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(180, 29)
-        Me.CheckBox1.TabIndex = 3
-        Me.CheckBox1.Text = "إعدادات الاتصال بالسيرفر"
-        Me.CheckBox1.UseVisualStyleBackColor = True
+        Me.ckConSettings.AutoSize = True
+        Me.ckConSettings.Font = New System.Drawing.Font("Sakkal Majalla", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ckConSettings.Location = New System.Drawing.Point(35, 415)
+        Me.ckConSettings.Name = "ckConSettings"
+        Me.ckConSettings.Size = New System.Drawing.Size(180, 29)
+        Me.ckConSettings.TabIndex = 3
+        Me.ckConSettings.Text = "إعدادات الاتصال بالسيرفر"
+        Me.ckConSettings.UseVisualStyleBackColor = True
         '
         'BunifuElipse1
         '
@@ -281,7 +281,7 @@ Partial Class FrmLogin
         Me.Controls.Add(Me.BunifuImageButton1)
         Me.Controls.Add(Me.btnLogout)
         Me.Controls.Add(Me.btnLoging)
-        Me.Controls.Add(Me.CheckBox1)
+        Me.Controls.Add(Me.ckConSettings)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
@@ -315,9 +315,9 @@ Partial Class FrmLogin
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
-    Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
+    Friend WithEvents txtUserPassword As System.Windows.Forms.TextBox
+    Friend WithEvents txtUserName As System.Windows.Forms.TextBox
+    Friend WithEvents ckConSettings As System.Windows.Forms.CheckBox
     Friend WithEvents BunifuElipse1 As Bunifu.Framework.UI.BunifuElipse
     Friend WithEvents btnLogout As Bunifu.Framework.UI.BunifuThinButton2
     Friend WithEvents btnLoging As Bunifu.Framework.UI.BunifuThinButton2

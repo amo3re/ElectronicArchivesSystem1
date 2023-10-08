@@ -103,7 +103,7 @@ Partial Class FrmUserAccounts
         Me.btnDeleteImage.Name = "btnDeleteImage"
         Me.btnDeleteImage.Size = New System.Drawing.Size(75, 23)
         Me.btnDeleteImage.TabIndex = 26
-        Me.btnDeleteImage.Text = "حذف الصوره"
+        Me.btnDeleteImage.Text = "حذف الصورة"
         Me.btnDeleteImage.UseVisualStyleBackColor = True
         '
         'btnChooseImage
@@ -112,7 +112,7 @@ Partial Class FrmUserAccounts
         Me.btnChooseImage.Name = "btnChooseImage"
         Me.btnChooseImage.Size = New System.Drawing.Size(75, 23)
         Me.btnChooseImage.TabIndex = 5
-        Me.btnChooseImage.Text = "اختر صوره"
+        Me.btnChooseImage.Text = "اختر صورة"
         Me.btnChooseImage.UseVisualStyleBackColor = True
         '
         'UserImage

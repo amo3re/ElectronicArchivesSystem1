@@ -8,7 +8,7 @@ Public Class FrmMainPage
         Try
 
             Me.WebBrowser1.DocumentText = Nothing  ' تنظيف المتصفح 
-            Me.PictureBox1.Image = Nothing
+            Me.UserImagPic.Image = Nothing
             'Me.AxAcroPDF1.src = Nothing
 
         Catch ex As Exception
@@ -238,7 +238,7 @@ Public Class FrmMainPage
 
     Private Sub FrmMainPage_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' we have to check Server Name before Load
-        Me.Label2.Text = "المستخدم الحالي" & LogUserName '  لعرض المستخدم الحالي في الشاشة الرئيسية 
+        Me.Label2.Text = "المستخدم الحالي" & vbNewLine & LogUserName '  لعرض المستخدم الحالي في الشاشة الرئيسية 
         cls.LoadArchiveTree(Me)  ' استدعاء اجراء عمل تحميل لشجرة الارشفة 
         cls.CreateTempFolder()  ' استدعاء اجراء انشاء ملف التيمب لفتح الملفات فيه
         If My.Settings.AutoBackup = 2 Then ' فحص اذا كان المتغير الخاص بالنسخ التلقائي يساوي 2 اي ان النسخ سيكون عبر الوقت المحدد بالساعات 
@@ -507,5 +507,9 @@ Public Class FrmMainPage
 
     Private Sub BackupTimer_Tick(sender As Object, e As EventArgs) Handles BackupTimer.Tick
         cls.EnableBackupPerHours(BackupTimer) ' استدعاء اجراء الذي يقوم بتفعيل النسخ الاحتياطي حسب الوقت المعين  
+    End Sub
+
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        Me.lblTime.Text = Now.ToString("hh:mm:ss tt")
     End Sub
 End Class

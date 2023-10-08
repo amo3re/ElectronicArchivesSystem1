@@ -2877,7 +2877,73 @@ Public Class ProjectClass
 #End Region
 
 
+#Region " Login "
 
+    ' Login To Program
+    Public Sub LoginToProgram(ByVal xx As FrmLogin, ByVal Username As String, ByVal txtPassword As String)
+        Try
+            If MyTextNull(xx.txtUserName, "اسم المستخدم") Then Return
+            If MyTextNull(xx.txtUserPassword, "كلمة المرور") Then Return
+            If TestServerConectionBeforLogin() = False Then Return
+
+            Dim dt As New DataTable
+            FillDataTable(dt, "SELECT UserAccID,UserAccName,AccType,UserImage,AccActivate from UserAccounts where IsDeleted=0 and (UserName = N'" & Username & "') and (UserPassword =N'" & txtPassword & "')")
+
+            If dt.Rows.Count > 0 Then
+
+                If dt.Rows(0).Item("AccActivate") = False Then
+                    MessageBox.Show("ان حساب المستخدم " & dt.Rows(0).Item("UserAccName") & " ليس لديه صلاحية الدخول الى النظام" & vbNewLine &
+                                    "يرجى متابعة مدير النظام", "رسالة تنبية ", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Return
+                End If
+
+                LogUserID = dt.Rows(0).Item("UserAccID")  ' Get LogUserId
+                LogUserName = dt.Rows(0).Item("UserAccName")  'Get LogUserName
+
+                FrmMainPage.Show() ' Open MainForm 
+
+                ShowSavedPicture(FrmMainPage.UserImagPic, dt, 0, "UserImage")
+
+                xx.Close()
+
+            Else
+                MessageBox.Show("اسم المستخدم او كلمة المرور غير صحيحة", "رسالة تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                xx.txtUserName.Clear()
+                xx.txtUserPassword.Clear()
+                xx.txtUserName.Focus()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Erorr Message", MessageBoxButtons.OKCancel, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    ' Test Server Conection Befor Login
+    Public Function TestServerConectionBeforLogin() As Boolean
+        Try
+            Dim ServerName As String = My.Settings.ServerName
+            Dim SqlConn As New SqlConnection
+
+            Dim SqlConnStr As String = Nothing
+            If My.Settings.LoginMothed = 0 Then
+                SqlConnStr = "Data Source=" & ServerName & ";Initial Catalog=master;Integrated Security=True"
+            ElseIf My.Settings.LoginMothed = 1 Then
+                SqlConnStr = "Data Source=" & ServerName & ";Initial Catalog=master;User ID=" & My.Settings.LoginID & ";Password=" & My.Settings.LogPassword & ""
+            ElseIf My.Settings.LoginMothed = 2 Then
+                SqlConnStr = "Data Source=" & My.Settings.ServerIP & "," & My.Settings.LoginPort & ";Network Library=DBMSSOCN;Initial Catalog=master;User ID=" & My.Settings.LoginID & ";Password=" & My.Settings.LogPassword & ""
+            ElseIf My.Settings.LoginMothed = 3 Then
+                SqlConnStr = My.Settings.WANConString
+            End If
+
+            SqlConn.ConnectionString = SqlConnStr
+            If SqlConn.State = ConnectionState.Closed Then SqlConn.Open()
+            Return True
+        Catch ex As Exception
+            MessageBox.Show("فشل الاتصال بالسيرفر" + vbCrLf + Err.Description, "فحص الاتصال", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
+
+#End Region
 
 
 End Class

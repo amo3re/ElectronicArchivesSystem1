@@ -24,9 +24,9 @@ Partial Class FrmMainPage
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMainPage))
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.btnAddNewFolder = New System.Windows.Forms.ToolStripButton()
         Me.btnAddNewFile = New System.Windows.Forms.ToolStripButton()
@@ -75,9 +75,9 @@ Partial Class FrmMainPage
         Me.btnClose = New System.Windows.Forms.Button()
         Me.Panel10 = New System.Windows.Forms.Panel()
         Me.pictureBox2 = New System.Windows.Forms.PictureBox()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblTime = New System.Windows.Forms.Label()
         Me.Panel9 = New System.Windows.Forms.Panel()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.UserImagPic = New System.Windows.Forms.PictureBox()
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.btnUserRoles = New System.Windows.Forms.Button()
         Me.P_Tail = New System.Windows.Forms.Panel()
@@ -99,6 +99,7 @@ Partial Class FrmMainPage
         Me.ToolStripSeparator16 = New System.Windows.Forms.ToolStripSeparator()
         Me.ToolStripLabel2 = New System.Windows.Forms.ToolStripLabel()
         Me.PDFPanel = New System.Windows.Forms.Panel()
+        Me.AxAcroPDF1 = New AxAcroPDFLib.AxAcroPDF()
         Me.txtPanel = New System.Windows.Forms.Panel()
         Me.txtReader = New System.Windows.Forms.RichTextBox()
         Me.TailPanel = New System.Windows.Forms.Panel()
@@ -106,7 +107,6 @@ Partial Class FrmMainPage
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.BackupTimer = New System.Windows.Forms.Timer(Me.components)
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.AxAcroPDF1 = New AxAcroPDFLib.AxAcroPDF()
         Me.ToolStrip1.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.Panel6.SuspendLayout()
@@ -118,7 +118,7 @@ Partial Class FrmMainPage
         Me.Panel10.SuspendLayout()
         CType(Me.pictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel9.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.UserImagPic, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel8.SuspendLayout()
         Me.P_Tail.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -133,8 +133,8 @@ Partial Class FrmMainPage
         Me.Panel7.SuspendLayout()
         Me.ToolStrip4.SuspendLayout()
         Me.PDFPanel.SuspendLayout()
-        Me.txtPanel.SuspendLayout()
         CType(Me.AxAcroPDF1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.txtPanel.SuspendLayout()
         Me.SuspendLayout()
         '
         'ToolStrip1
@@ -493,34 +493,34 @@ Partial Class FrmMainPage
         Me.dgv_Files.AllowUserToAddRows = False
         Me.dgv_Files.AllowUserToDeleteRows = False
         Me.dgv_Files.AllowUserToResizeRows = False
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.LightBlue
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black
-        Me.dgv_Files.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle13.BackColor = System.Drawing.Color.LightBlue
+        DataGridViewCellStyle13.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle13.ForeColor = System.Drawing.Color.Black
+        Me.dgv_Files.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
         Me.dgv_Files.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgv_Files.BackgroundColor = System.Drawing.Color.White
         Me.dgv_Files.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Sakkal Majalla", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgv_Files.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("Sakkal Majalla", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgv_Files.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle14
         Me.dgv_Files.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgv_Files.ColumnHeadersVisible = False
         Me.dgv_Files.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.xCode, Me.xName})
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgv_Files.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle15.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle15.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgv_Files.DefaultCellStyle = DataGridViewCellStyle15
         Me.dgv_Files.EnableHeadersVisualStyles = False
         Me.dgv_Files.Location = New System.Drawing.Point(18, 73)
         Me.dgv_Files.MultiSelect = False
@@ -572,7 +572,7 @@ Partial Class FrmMainPage
         Me.Label2.ForeColor = System.Drawing.Color.White
         Me.Label2.Location = New System.Drawing.Point(0, 171)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(120, 27)
+        Me.Label2.Size = New System.Drawing.Size(120, 83)
         Me.Label2.TabIndex = 4
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
@@ -674,7 +674,7 @@ Partial Class FrmMainPage
         'Panel10
         '
         Me.Panel10.Controls.Add(Me.pictureBox2)
-        Me.Panel10.Controls.Add(Me.Label1)
+        Me.Panel10.Controls.Add(Me.lblTime)
         Me.Panel10.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Panel10.Location = New System.Drawing.Point(0, 546)
         Me.Panel10.Name = "Panel10"
@@ -692,37 +692,37 @@ Partial Class FrmMainPage
         Me.pictureBox2.TabIndex = 20
         Me.pictureBox2.TabStop = False
         '
-        'Label1
+        'lblTime
         '
-        Me.Label1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Label1.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(0, 96)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(120, 26)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "12:00:00"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblTime.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblTime.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTime.ForeColor = System.Drawing.Color.White
+        Me.lblTime.Location = New System.Drawing.Point(0, 96)
+        Me.lblTime.Name = "lblTime"
+        Me.lblTime.Size = New System.Drawing.Size(120, 26)
+        Me.lblTime.TabIndex = 0
+        Me.lblTime.Text = "00:00:00"
+        Me.lblTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Panel9
         '
-        Me.Panel9.Controls.Add(Me.PictureBox1)
+        Me.Panel9.Controls.Add(Me.UserImagPic)
         Me.Panel9.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel9.Location = New System.Drawing.Point(0, 45)
         Me.Panel9.Name = "Panel9"
         Me.Panel9.Size = New System.Drawing.Size(120, 126)
         Me.Panel9.TabIndex = 1
         '
-        'PictureBox1
+        'UserImagPic
         '
-        Me.PictureBox1.BackgroundImage = Global.Electronic_Archives_System.My.Resources.Resources.flat_seo_30_512
-        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PictureBox1.Location = New System.Drawing.Point(0, 0)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(120, 126)
-        Me.PictureBox1.TabIndex = 0
-        Me.PictureBox1.TabStop = False
+        Me.UserImagPic.BackgroundImage = Global.Electronic_Archives_System.My.Resources.Resources.flat_seo_30_512
+        Me.UserImagPic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.UserImagPic.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.UserImagPic.Location = New System.Drawing.Point(0, 0)
+        Me.UserImagPic.Name = "UserImagPic"
+        Me.UserImagPic.Size = New System.Drawing.Size(120, 126)
+        Me.UserImagPic.TabIndex = 0
+        Me.UserImagPic.TabStop = False
         '
         'Panel8
         '
@@ -957,6 +957,16 @@ Partial Class FrmMainPage
         Me.PDFPanel.Size = New System.Drawing.Size(630, 640)
         Me.PDFPanel.TabIndex = 23
         '
+        'AxAcroPDF1
+        '
+        Me.AxAcroPDF1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.AxAcroPDF1.Enabled = True
+        Me.AxAcroPDF1.Location = New System.Drawing.Point(0, 0)
+        Me.AxAcroPDF1.Name = "AxAcroPDF1"
+        Me.AxAcroPDF1.OcxState = CType(resources.GetObject("AxAcroPDF1.OcxState"), System.Windows.Forms.AxHost.State)
+        Me.AxAcroPDF1.Size = New System.Drawing.Size(630, 640)
+        Me.AxAcroPDF1.TabIndex = 0
+        '
         'txtPanel
         '
         Me.txtPanel.Controls.Add(Me.txtReader)
@@ -1002,15 +1012,10 @@ Partial Class FrmMainPage
         '
         Me.BackupTimer.Interval = 1000
         '
-        'AxAcroPDF1
+        'Timer1
         '
-        Me.AxAcroPDF1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.AxAcroPDF1.Enabled = True
-        Me.AxAcroPDF1.Location = New System.Drawing.Point(0, 0)
-        Me.AxAcroPDF1.Name = "AxAcroPDF1"
-        Me.AxAcroPDF1.OcxState = CType(resources.GetObject("AxAcroPDF1.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.AxAcroPDF1.Size = New System.Drawing.Size(630, 640)
-        Me.AxAcroPDF1.TabIndex = 0
+        Me.Timer1.Enabled = True
+        Me.Timer1.Interval = 1000
         '
         'FrmMainPage
         '
@@ -1042,7 +1047,7 @@ Partial Class FrmMainPage
         Me.Panel10.ResumeLayout(False)
         CType(Me.pictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel9.ResumeLayout(False)
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.UserImagPic, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel8.ResumeLayout(False)
         Me.P_Tail.ResumeLayout(False)
         Me.SplitContainer1.Panel1.ResumeLayout(False)
@@ -1060,8 +1065,8 @@ Partial Class FrmMainPage
         Me.ToolStrip4.ResumeLayout(False)
         Me.ToolStrip4.PerformLayout()
         Me.PDFPanel.ResumeLayout(False)
-        Me.txtPanel.ResumeLayout(False)
         CType(Me.AxAcroPDF1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.txtPanel.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -1089,9 +1094,9 @@ Partial Class FrmMainPage
     Friend WithEvents btnClose As System.Windows.Forms.Button
     Friend WithEvents Panel10 As System.Windows.Forms.Panel
     Private WithEvents pictureBox2 As System.Windows.Forms.PictureBox
-    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents lblTime As System.Windows.Forms.Label
     Friend WithEvents Panel9 As System.Windows.Forms.Panel
-    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
+    Friend WithEvents UserImagPic As System.Windows.Forms.PictureBox
     Friend WithEvents Panel8 As System.Windows.Forms.Panel
     Friend WithEvents P_Tail As System.Windows.Forms.Panel
     Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
